@@ -11,7 +11,7 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(str(self.name))
         super().save(*args, **kwargs)
 
 
@@ -25,7 +25,7 @@ class SubCategory(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(str(self.name))
         super().save(*args, **kwargs)
 
 

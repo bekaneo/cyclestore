@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Order, OrderItems
+
+from orders.models import Order, OrderItems
 
 
 class OrderItemsInline(admin.TabularInline):
@@ -8,7 +9,7 @@ class OrderItemsInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'created_at', 'total_sum']
+    list_display = ['id', 'created_at', 'total', 'status']
     inlines = [OrderItemsInline]
 
 
