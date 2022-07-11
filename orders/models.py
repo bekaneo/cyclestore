@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from products.models import Product
 
 
-
 User = get_user_model()
 
 STATUS_CHOICES = (
