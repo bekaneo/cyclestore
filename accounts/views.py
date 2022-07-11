@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
-
+from rest_framework import status
 
 from .serializers import *
 
@@ -18,7 +18,7 @@ class RegistrationView(APIView):
         serializer = RegistrationSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             serializer.create()
-            return Response('Successfully created')
+            return Response('Successfully created', status=status.HTTP_201_CREATED)
 
 
 class ActivationView(APIView):
