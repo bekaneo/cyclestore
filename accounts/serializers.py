@@ -13,6 +13,7 @@ class RegistrationSerializer(serializers.Serializer):
     name = serializers.CharField()
     password = serializers.CharField(min_length=4)
     password_confirm = serializers.CharField(min_length=4)
+    phone_number = serializers.CharField(max_length=20, min_length=6)
 
     def validate_email(self, email):
         if User.objects.filter(email=email).exists():
@@ -119,3 +120,4 @@ class ChangePasswordSerializer(serializers.Serializer):
         user = self.context['request'].user
         password = self.validated_data.get('new_password')
         user.set_password(password)
+        user.save()

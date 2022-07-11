@@ -27,13 +27,14 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     email = models.EmailField(primary_key=True)
     name = models.CharField(max_length=50)
-    phone_numbers = models.CharField(max_length=50)
+    phone_number = models.CharField(max_length=50, blank=True)
+    image = models.ImageField(upload_to='posts', blank=True, null=True)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     activation_code = models.CharField(max_length=20, blank=True, verbose_name='activation_code')
 
     objects = UserManager()
-    USERNAME_FIELD = 'name'
+    USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
 
     def __str__(self):
