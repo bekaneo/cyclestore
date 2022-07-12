@@ -6,7 +6,7 @@ from products.models import Product, ProductImage
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     model = Product
-    list_display = ['user', 'name', 'category', 'price', 'description', 'subcategory']
+    list_display = ['user', 'name', 'category', 'price', 'description', 'brand']
 
 
 @admin.register(ProductImage)
