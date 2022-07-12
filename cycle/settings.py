@@ -79,7 +79,6 @@ REST_FRAMEWORK = {
     )
 }
 
-
 ROOT_URLCONF = 'cycle.urls'
 
 TEMPLATES = [
