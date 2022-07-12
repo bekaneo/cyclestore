@@ -13,7 +13,6 @@ class Product(models.Model):
     category = models.ForeignKey(Category,
                                  on_delete=models.CASCADE,
                                  related_name='products')
-    size = models.ForeignKey(Size, )
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, related_name='subcategory')
 
     def __str__(self):
