@@ -22,7 +22,7 @@ class Order(models.Model):
     total = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     status = models.CharField(choices=STATUS_CHOICES, max_length=50, default='open')
 
-    def __str__(self):
+    def str(self):
         return f'Order #{self.id}'
 
 
