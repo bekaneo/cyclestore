@@ -1,9 +1,9 @@
 from rest_framework import mixins
-from rest_framework.viewsets import GenericViewSet
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import GenericViewSet
 
 from .models import Order
-from orders.serializers import OrderSerializer
+from .serializers import OrderSerializer
 
 
 class OrderViewSet(mixins.CreateModelMixin, mixins.ListModelMixin,

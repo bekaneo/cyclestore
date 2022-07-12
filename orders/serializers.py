@@ -1,6 +1,7 @@
-from venv import create
 from rest_framework import serializers
-from .models import Order, OrderItems
+
+from orders.models import Order, OrderItems
+from products.models import Product
 
 
 class OrderItemSerializer(serializers.ModelSerializer):

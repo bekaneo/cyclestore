@@ -1,5 +1,7 @@
 from django.contrib import admin
+
 from categories.models import Category, SubCategory
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -11,4 +13,3 @@ class CategoryAdmin(admin.ModelAdmin):
 class SubCategoryAdmin(admin.ModelAdmin):
     model = SubCategory
     list_display = ['name', 'slug', 'category']
-# Register your models here.
