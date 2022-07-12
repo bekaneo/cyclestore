@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from categories.models import Category, SubCategory
+
+from categories.models import Category, Brand
 
 User = get_user_model()
 
@@ -13,12 +14,10 @@ class Product(models.Model):
     category = models.ForeignKey(Category,
                                  on_delete=models.CASCADE,
                                  related_name='products')
-    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, related_name='subcategory')
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='subcategory')
 
     def __str__(self):
         return self.name
-
-
 
 
 class ProductImage(models.Model):
