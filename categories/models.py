@@ -34,5 +34,3 @@ class Size(models.Model):
 
     def __str__(self):
         return self.size_in_cm
-
-
