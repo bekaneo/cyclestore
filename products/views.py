@@ -11,18 +11,18 @@ class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer
     filter_backends = [SearchFilter]
     search_fields = ['name', 'description']
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_serializer_class(self):
         if self.action == 'list':
             return ProductListSerializer
         return super().get_serializer_class()
 
-    def get_permissions(self):
-        if self.action in ['list', 'retrieve']:
-            self.permission_classes = [permissions.AllowAny]
-        if self.action in ['destroy', 'update', 'create', 'partial_update']:
-            self.permission_classes = [permissions.IsAdminUser]
-        return super().get_permissions()
+    # def get_permissions(self):
+    #     if self.action in ['list', 'retrieve']:
+    #         self.permission_classes = [permissions.AllowAny]
+    #     if self.action in ['destroy', 'update', 'create', 'partial_update']:
+    #         self.permission_classes = [permissions.IsAdminUser]
+    #     return super().get_permissions()
 
 

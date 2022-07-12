@@ -19,6 +19,8 @@ class Product(models.Model):
         return self.name
 
 
+
+
 class ProductImage(models.Model):
     image = models.ImageField(upload_to='posts', blank=True, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
