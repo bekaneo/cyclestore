@@ -1,9 +1,9 @@
+from cycle import settings
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from rest_framework import serializers
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.generics import RetrieveAPIView
-from cycle import settings
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 User = get_user_model()
 
