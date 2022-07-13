@@ -8,21 +8,31 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
 
-
-class ProductListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields = ['id', 'name', 'description', 'price']
-
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        serializer = PostImageSerializer(instance.images.all(),
-                                         many=True, context=self.context)
+        serializer = ProductImageSerializer(instance.images.all(),
+                                            many=True, context=self.context)
         representation['image'] = serializer.data
         return representation
 
 
-class PostImageSerializer(serializers.ModelSerializer):
+class ProductListSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField()
+
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'description', 'price', 'user']
+
+    def validate(self, attrs):
+        attrs['user'] = self.context.get('request').user
+        return super().validate(attrs)
+
+    def create(self, validated_data):
+        self.user = validated_data['user']
+        return super().create(validated_data)
+
+
+class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
         fields = '__all__'
