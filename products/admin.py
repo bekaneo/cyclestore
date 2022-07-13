@@ -12,11 +12,11 @@ class ProductImageInLine(admin.TabularInline):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     model = Product
-    inlines = [PostImageInLine, ]
+    inlines = [ProductImageInLine, ]
     list_display = ['user', 'name', 'category', 'price', 'description', 'brand']
 
 
-@admin.register(ProductImage)
-class ProductImageAdmin(admin.ModelAdmin):
-    model = ProductImage
-    list_display = ['image', 'product']
+# @admin.register(ProductImage)
+# class ProductImageAdmin(admin.ModelAdmin):
+#     model = ProductImage
+#     list_display = ['image', 'product']
