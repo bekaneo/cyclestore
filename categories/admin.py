@@ -18,4 +18,4 @@ class SubCategoryAdmin(admin.ModelAdmin):
 @admin.register(Size)
 class SizeAdmin(admin.ModelAdmin):
     model = Size
-    list_display = ['size']
+    list_display = ['']
