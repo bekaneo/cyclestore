@@ -7,6 +7,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework import status
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin
+# from rest_framework.viewsets import
 
 from .serializers import *
 
@@ -85,5 +86,6 @@ class ChangePasswordView(APIView):
             return Response('Password is successfully updated')
 
 
-# class RetrieveUser(RetrieveModelMixin, UpdateModelMixin):
-#     serializer_class =
+class RetrieveUser(RetrieveModelMixin, UpdateModelMixin):
+    serializer_class = ...
+
