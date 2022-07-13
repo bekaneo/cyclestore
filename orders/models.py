@@ -13,7 +13,6 @@ STATUS_CHOICES = (
 )
 
 
-
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='orders')
     created_at = models.DateTimeField(auto_now_add=True)
