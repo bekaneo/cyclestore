@@ -14,8 +14,3 @@ class SubCategoryAdmin(admin.ModelAdmin):
     model = Brand
     list_display = ['brand', 'slug']
 
-
-@admin.register(Size)
-class SizeAdmin(admin.ModelAdmin):
-    model = Size
-    list_display = ['']
