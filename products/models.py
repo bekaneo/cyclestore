@@ -9,7 +9,16 @@ COLORS = [
     ('black', 'black'),
     ('white', 'white'),
     ('red', 'red'),
-    ('blue', 'blue')
+    ('blue', 'blue'),
+    ('grey', 'grey'),
+    ('yellow', 'yellow'),
+    ('green', 'green'),
+    ('pink', 'pink'),
+    ('orange', 'orange'),
+    ('brown', 'brown'),
+    ('violet', 'violet'),
+    ('gold', 'gold'),
+    ('silver', 'silver'),
 ]
 
 
