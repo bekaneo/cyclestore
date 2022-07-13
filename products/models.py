@@ -9,7 +9,15 @@ COLORS = [
     ('black', 'black'),
     ('white', 'white'),
     ('red', 'red'),
-    ('blue', 'blue')
+    ('blue', 'blue'),
+    ('silver', 'silver'),
+    ('gray', 'gray'),
+    ('maroon', 'maroon'),
+    ('purple', 'purple' ),
+    ('green', 'green'),
+    ('yellow', 'yellow'),
+    ('turquoise', 'turquoise'),
+    ('orange', 'orange'),
 ]
 
 
