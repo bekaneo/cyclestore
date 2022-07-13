@@ -12,6 +12,7 @@ COLORS = [
     ('blue', 'blue')
 ]
 
+
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
     name = models.CharField(max_length=100)
@@ -22,6 +23,7 @@ class Product(models.Model):
                                  related_name='products')
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='subcategory')
     color = models.CharField(max_length=20, choices=COLORS, default='other')
+
     def __str__(self):
         return self.name
 
