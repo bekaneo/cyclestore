@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from categories.models import Category, Brand
+from categories.models import Category, Brand, Size
 
 
 @admin.register(Category)
@@ -13,3 +13,9 @@ class CategoryAdmin(admin.ModelAdmin):
 class SubCategoryAdmin(admin.ModelAdmin):
     model = Brand
     list_display = ['brand', 'slug']
+
+
+@admin.register(Size)
+class SizeAdmin(admin.ModelAdmin):
+    model = Size
+    list_display = ['size']
