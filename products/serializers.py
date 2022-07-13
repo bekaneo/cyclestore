@@ -4,6 +4,8 @@ from .models import Product, ProductImage
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.email')
+
     class Meta:
         model = Product
         fields = '__all__'
@@ -15,21 +17,15 @@ class ProductSerializer(serializers.ModelSerializer):
         representation['image'] = serializer.data
         return representation
 
+    def create(self, validated_data):
+        validated_data['user'] = self.context['request'].user
+        return super().create(validated_data)
+
 
 class ProductListSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField()
-
     class Meta:
         model = Product
         fields = ['id', 'name', 'description', 'price', 'user']
-
-    def validate(self, attrs):
-        attrs['user'] = self.context.get('request').user
-        return super().validate(attrs)
-
-    def create(self, validated_data):
-        self.user = validated_data['user']
-        return super().create(validated_data)
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
