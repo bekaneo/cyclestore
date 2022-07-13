@@ -1,4 +1,6 @@
-from categories.models import Category, Brand, Size
+from datetime import datetime
+
+from categories.models import Type, Brand, Size
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -18,12 +20,14 @@ class Product(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    category = models.ForeignKey(Category,
+    category = models.ForeignKey(Type,
                                  on_delete=models.CASCADE,
                                  related_name='products')
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='subcategory')
-    size = models.ForeignKey(Size, on_delete=models.RESTRICT, related_name='size', blank=True)
+    size = models.ForeignKey(Size, on_delete=models.CASCADE, related_name='size', blank=True)
     color = models.CharField(max_length=20, choices=COLORS, default='other')
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
