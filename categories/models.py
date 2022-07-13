@@ -2,7 +2,7 @@ from django.db import models
 from slugify import slugify
 
 
-class Category(models.Model):
+class Type(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, blank=True)
     

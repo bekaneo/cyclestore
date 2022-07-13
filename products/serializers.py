@@ -5,6 +5,9 @@ from .models import Product, ProductImage
 
 class ProductSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.email')
+    created_at = serializers.DateTimeField(format='%Y-%m-%d %H:%M')
+    modified_at = serializers.DateTimeField(format='%Y-%m-%d %H:%M')
+    is_active = serializers.BooleanField(default=True)
 
     class Meta:
         model = Product
@@ -25,13 +28,13 @@ class ProductSerializer(serializers.ModelSerializer):
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['id', 'title', 'description', 'price', 'user']
+        fields = ['title', 'description', 'price', 'user']
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
-        fields = '__all__'
+        fields = ['image']
 
     def get_image_url(self, obj):
         if obj.image:
