@@ -12,7 +12,7 @@ class ProductSerializer(serializers.ModelSerializer):
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['id', 'name', 'price']
+        fields = ['id', 'name', 'description', 'price']
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
@@ -42,4 +42,3 @@ class PostImageSerializer(serializers.ModelSerializer):
         representation['image'] = self.get_image_url(instance)
 
         return representation
-
