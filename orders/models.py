@@ -12,13 +12,6 @@ STATUS_CHOICES = (
     ('finished', 'Finished')
 )
 
-STATUS_CHOICES = (
-    ('open', 'open'),
-    ('in_process', 'in_process'),
-    ('canceled', 'canceled'),
-    ('delivered', 'delivered')
-)
-
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='orders')
@@ -28,7 +21,7 @@ class Order(models.Model):
     total = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     status = models.CharField(choices=STATUS_CHOICES, max_length=50, default='open')
 
-    def __str__(self):
+    def str(self):
         return f'Order #{self.id}'
 
 
