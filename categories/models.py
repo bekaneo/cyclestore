@@ -4,7 +4,7 @@ from slugify import slugify
 
 class Type(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100, blank=True)
+    slug = models.SlugField(max_length=100, blank=True, primary_key=True)
     
     def __str__(self):
         return self.name
@@ -17,7 +17,7 @@ class Type(models.Model):
 
 class Brand(models.Model):
     brand = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100, blank=True)
+    slug = models.SlugField(max_length=100, blank=True, primary_key=True)
 
     def __str__(self):
         return self.brand
@@ -29,7 +29,7 @@ class Brand(models.Model):
 
 
 class Size(models.Model):
-    size_in_inch = models.CharField(max_length=10)
+    size_in_inch = models.CharField(max_length=10, primary_key=True)
     size_in_cm = models.CharField(max_length=20)
 
     def __str__(self):

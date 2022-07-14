@@ -13,10 +13,10 @@ class ProductViewSet(ModelViewSet):
     filter_backends = [SearchFilter]
     search_fields = ['name', 'description']
 
-    def get_serializer_class(self):
-        if self.action == 'list':
-            return ProductListSerializer
-        return super().get_serializer_class()
+    # def get_serializer_class(self):
+    #     if self.action == 'list':
+    #         return ProductListSerializer
+    #     return super().get_serializer_class()
 
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
@@ -25,3 +25,6 @@ class ProductViewSet(ModelViewSet):
             self.permission_classes = [permissions.IsAdminUser]
         return super().get_permissions()
 
+    def create(self, request, *args, **kwargs):
+        print(args, kwargs, request.POST)
+        return super().create(request, *args, **kwargs)

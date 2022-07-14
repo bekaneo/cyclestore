@@ -1,0 +1,63 @@
+# В систему устоновить redis
+# Brew install redis
+#
+# Запустить redis
+# redis-server
+#
+# 2 в requirements.txt устоновить celery
+#
+# 3 в django проекта  создать файл _celery.py
+
+# import os
+#
+# from celery import Celery
+# from celery.schedules import crontab
+#
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'shop.settings')
+#
+# app = Celery('shop')
+# app.config_from_object('django.conf:settings', namespace='CELERY')
+# app.autodiscover_tasks()
+# app.conf.update(result_expires=3600, enable_utc=True, timezone='UTC')
+# app.conf.beat_schedule = {
+# }
+# app.conf.timezone = 'UTC'
+#
+#
+# @app.task(bind=True)
+# def test():
+#     print('Hello world')
+# В той же папке укзать celery application
+# from ._celery import app as celery_app
+# __all__ = ['celery_app']
+
+# 4 в settings.py нужно указать настройки для celery и redis
+
+# CELERY_BROKER_URL = 'redis://localhost:6379'
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TIMEZONE = 'UTC'
+# REDIS_HOST = 'localhost'
+# REDIS_PORT = '6379'
+
+# в нужно приложении создать файл tasks.py
+# в этом файле нужно определить функцию,
+# но она должна принимать простые объекты (то что можно сериализовать в json)
+# в этой функции прописать логику действия (отправка почты)
+
+# from celery import shared_task
+#
+# @shared_task
+# def send_activation_mail(email, activations_code):
+#     # TODO: change activations link
+#     activation_link = f'http://localhost:8000/account/activation/' \
+#                       f'{self.activation_code}'
+#     send_mail(subject='Activation',
+#               message=activation_link,
+#               from_email=settings.EMAIL_HOST_USER,
+#               recipient_list=[self.email],
+#               fail_silently=False)
+
+# 6 при вызове таска вызываем через delay()

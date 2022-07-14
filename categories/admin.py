@@ -1,12 +1,12 @@
-from django.contrib import admin
-
 from categories.models import Type, Brand, Size
+from django.contrib import admin
 
 
 @admin.register(Type)
 class CategoryAdmin(admin.ModelAdmin):
     model = Type
     list_display = ['name', 'slug']
+
 
 @admin.register(Size)
 class SizeAdmin(admin.ModelAdmin):

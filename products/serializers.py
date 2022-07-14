@@ -1,3 +1,5 @@
+import datetime
+
 from rest_framework import serializers
 
 from .models import Product, ProductImage
@@ -5,9 +7,6 @@ from .models import Product, ProductImage
 
 class ProductSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.email')
-    created_at = serializers.DateTimeField(format='%Y-%m-%d %H:%M')
-    modified_at = serializers.DateTimeField(format='%Y-%m-%d %H:%M')
-    is_active = serializers.BooleanField(default=True)
 
     class Meta:
         model = Product
@@ -17,12 +16,17 @@ class ProductSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         serializer = ProductImageSerializer(instance.images.all(),
                                             many=True, context=self.context)
-        representation['image'] = serializer.data
+        representation['images'] = serializer.data
         return representation
 
     def create(self, validated_data):
-        validated_data['user'] = self.context['request'].user
+        validated_data['created_at'] = datetime.datetime.today()
         return super().create(validated_data)
+
+    def save(self, **kwargs):
+        self.validated_data['user'] = self.context['request'].user
+        print(self.validated_data)
+        return super().save(**kwargs)
 
 
 class ProductListSerializer(serializers.ModelSerializer):
