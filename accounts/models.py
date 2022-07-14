@@ -54,7 +54,7 @@ class User(AbstractBaseUser):
 
     def send_activation_code(self):
         # TODO: change activations link
-        activation_link = f'http://localhost:8000/account/activation/' \
+        activation_link = f'https://thawing-brook-92190.herokuapp.com/account/activation/' \
                           f'{self.activation_code}'
         send_mail(subject='Activation',
                   message=activation_link,

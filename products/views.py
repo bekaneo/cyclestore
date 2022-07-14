@@ -8,7 +8,7 @@ from rest_framework.generics import ListCreateAPIView
 
 
 class ProductViewSet(ModelViewSet):
-    queryset = Product.objects.filter(is_active=True).order_by('id')
+    queryset = Product.objects.all().order_by('id')
     serializer_class = ProductSerializer
     filter_backends = [SearchFilter]
     search_fields = ['title', 'description']
@@ -26,5 +26,5 @@ class ProductViewSet(ModelViewSet):
         return super().get_permissions()
 
     def create(self, request, *args, **kwargs):
-        print(request.POST)
+        print(*kwargs)
         return super().create(request, *args, **kwargs)
