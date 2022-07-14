@@ -25,7 +25,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def save(self, **kwargs):
         self.validated_data['user'] = self.context['request'].user
-        print(self.validated_data)
+        # print(self.validated_data)
         return super().save(**kwargs)
 
 
