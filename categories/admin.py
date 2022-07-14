@@ -1,11 +1,8 @@
 from categories.models import Type, Brand, Size
 from django.contrib import admin
 
-<<<<<<< HEAD
-from categories.models import Category, Brand, Size
-=======
->>>>>>> d8522092d29ccbbbfc2d0f0759fd6d5bd16442c6
 
+    
 @admin.register(Type)
 class CategoryAdmin(admin.ModelAdmin):
     model = Type
