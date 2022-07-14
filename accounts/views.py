@@ -7,14 +7,14 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework import status
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin
-# from rest_framework.viewsets import
-
+from drf_yasg.utils import swagger_auto_schema
 from .serializers import *
 
 User = get_user_model()
 
 
 class RegistrationView(APIView):
+    @swagger_auto_schema(request_body=RegistrationSerializer)
     def post(self, request):
         data = request.data
         serializer = RegistrationSerializer(data=data)
@@ -57,6 +57,7 @@ class LogoutView(APIView):
 
 
 class RestorePasswordView(APIView):
+    @swagger_auto_schema(request_body=RestorePasswordSerializer)
     def post(self, request):
         print(request.data)
         data = request.data
@@ -67,6 +68,7 @@ class RestorePasswordView(APIView):
 
 
 class RestorePasswordCompleteView(APIView):
+    @swagger_auto_schema(request_body=RestorePasswordCompleteSerializer)
     def post(self, request):
         data = request.data
         serializer = RestorePasswordCompleteSerializer(data=data)
@@ -78,6 +80,7 @@ class RestorePasswordCompleteView(APIView):
 class ChangePasswordView(APIView):
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(request_body=ChangePasswordSerializer)
     def post(self, request):
         data = request.data
         serializer = ChangePasswordSerializer(data=data, context={'request': request})

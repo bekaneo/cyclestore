@@ -8,15 +8,15 @@ from rest_framework.generics import ListCreateAPIView
 
 
 class ProductViewSet(ModelViewSet):
-    queryset = Product.objects.all().order_by('id')
+    queryset = Product.objects.filter(is_active=True).order_by('id')
     serializer_class = ProductSerializer
     filter_backends = [SearchFilter]
     search_fields = ['name', 'description']
 
-    def get_serializer_class(self):
-        if self.action == 'list':
-            return ProductListSerializer
-        return super().get_serializer_class()
+    # def get_serializer_class(self):
+    #     if self.action == 'list':
+    #         return ProductListSerializer
+    #     return super().get_serializer_class()
 
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
@@ -25,3 +25,6 @@ class ProductViewSet(ModelViewSet):
             self.permission_classes = [permissions.IsAdminUser]
         return super().get_permissions()
 
+    def create(self, request, *args, **kwargs):
+        print(request.POST)
+        return super().create(request, *args, **kwargs)
