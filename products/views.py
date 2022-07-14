@@ -26,5 +26,5 @@ class ProductViewSet(ModelViewSet):
         return super().get_permissions()
 
     def create(self, request, *args, **kwargs):
-        print(request.POST)
+        print(*kwargs)
         return super().create(request, *args, **kwargs)
