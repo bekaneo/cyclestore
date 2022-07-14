@@ -11,7 +11,7 @@ class ProductViewSet(ModelViewSet):
     queryset = Product.objects.filter(is_active=True).order_by('id')
     serializer_class = ProductSerializer
     filter_backends = [SearchFilter]
-    search_fields = ['name', 'description']
+    search_fields = ['title', 'description']
 
     # def get_serializer_class(self):
     #     if self.action == 'list':
