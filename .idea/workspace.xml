@@ -4,32 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="99958194-2e28-4564-9cb0-5d0e321173e7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/cycle 2.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/cycle 3.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/cycle 4.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/cycle.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e7bd8aa-0240-4e0b-bd3f-9d2fc12f6ca6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e7bd8aa-0240-4e0b-bd3f-9d2fc12f6ca6/storage_v2/_src_/database/cycle.5pirBQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e7bd8aa-0240-4e0b-bd3f-9d2fc12f6ca6/storage_v2/_src_/database/cycle.5pirBQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e7bd8aa-0240-4e0b-bd3f-9d2fc12f6ca6/storage_v2/_src_/database/cycle.5pirBQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e7bd8aa-0240-4e0b-bd3f-9d2fc12f6ca6/storage_v2/_src_/database/cycle.5pirBQ/schema/public.abK9xQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace 2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace 3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/categories/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/products/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="99958194-2e28-4564-9cb0-5d0e321173e7" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,7 +57,7 @@
       <option name="presentableId" value="Default" />
       <updated>1657701857552</updated>
       <workItem from="1657701858634" duration="3000" />
-      <workItem from="1657791590561" duration="1521000" />
+      <workItem from="1657791590561" duration="1910000" />
     </task>
     <servers />
   </component>
