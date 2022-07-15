@@ -19,14 +19,17 @@ class ProductSerializer(serializers.ModelSerializer):
         representation['images'] = serializer.data
         return representation
 
-    def create(self, validated_data):
-        validated_data['created_at'] = datetime.datetime.today()
-        return super().create(validated_data)
-
     def save(self, **kwargs):
         self.validated_data['user'] = self.context['request'].user
-        # print(self.validated_data)
+        self.validated_data['created_at'] = datetime.datetime.today()
         return super().save(**kwargs)
+
+    def create(self, validated_data):
+        images_data = self.context.get('view').request.FILES
+        product = Product.objects.create(**validated_data)
+        for image in images_data.values():
+            ProductImage.objects.create(product=product, image=image)
+        return product
 
 
 class ProductListSerializer(serializers.ModelSerializer):
@@ -38,7 +41,7 @@ class ProductListSerializer(serializers.ModelSerializer):
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
-        fields = ['image']
+        fields = ('image',)
 
     def get_image_url(self, obj):
         if obj.image:
