@@ -1,9 +1,9 @@
-from cycle import settings
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from rest_framework import serializers
-from rest_framework.generics import RetrieveAPIView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+from cycle import settings
 
 User = get_user_model()
 
@@ -13,7 +13,6 @@ class RegistrationSerializer(serializers.Serializer):
     name = serializers.CharField()
     password = serializers.CharField(min_length=4)
     password_confirm = serializers.CharField(min_length=4)
-    phone_number = serializers.CharField(max_length=20, min_length=6)
 
     def validate_email(self, email):
         if User.objects.filter(email=email).exists():
@@ -122,7 +121,9 @@ class ChangePasswordSerializer(serializers.Serializer):
         user.set_password(password)
         user.save()
 
-# class RetrieveUserView(RetrieveAPIView):
-#     def retrieve(self, request, *args, **kwargs):
-#         user = request.contex['user'].email
-#         queryset =
+# class UserProductSerializer(serializers.ModelSerializer):
+#     user = serializers.ReadOnlyField(source='user.email')
+#
+#     class Meta:
+#         model = Product
+#         fields = '__all__'
