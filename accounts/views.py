@@ -12,6 +12,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from products.serializers import ProductSerializer
 from .serializers import *
+from products.models import Product
 
 User = get_user_model()
 
