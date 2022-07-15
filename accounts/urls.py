@@ -1,11 +1,10 @@
 from django.urls import path
+from rest_framework.routers import DefaultRouter
+
 from .views import (RegistrationView, ActivationView, LoginView, UpdateTokenView,
                     LogoutView, RestorePasswordView, RestorePasswordCompleteView,
                     ChangePasswordView)
-from .views import UserProductView
-# from rest_framework.routers import DefaultRouter
-# router = DefaultRouter()
-# router.register('products', UserProductView)
+from .views import UserProfileView
 
 
 urlpatterns = [
@@ -17,5 +16,6 @@ urlpatterns = [
     path('restore_password/', RestorePasswordView.as_view()),
     path('restore_complete/', RestorePasswordCompleteView.as_view()),
     path('change_password/', ChangePasswordView.as_view()),
-    path('products/', UserProductView.as_view()),
+    # path('/', UserProductView.as_view()),
+    path('profile/', UserProfileView.as_view())
 ]

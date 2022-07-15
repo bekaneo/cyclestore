@@ -6,7 +6,7 @@ from rest_framework.generics import ListCreateAPIView
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from .permissions import IsAuthor
+from .permissions import IsAuthorOrAdmin
 
 
 class ProductViewSet(ModelViewSet):
@@ -21,7 +21,7 @@ class ProductViewSet(ModelViewSet):
         if self.action in ['create']:
             self.permission_classes = [permissions.IsAuthenticated]
         if self.action in ['destroy', 'update', 'partial_update']:
-            self.permission_classes = [IsAuthor]
+            self.permission_classes = [IsAuthorOrAdmin]
         return super().get_permissions()
 
     # def create(self, request, *args, **kwargs):

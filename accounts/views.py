@@ -1,15 +1,16 @@
 from django.http import Http404
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.mixins import ListModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, UpdateAPIView
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+from products.permissions import IsAuthorOrAdmin
 from products.serializers import ProductSerializer
 from .serializers import *
 from products.models import Product
@@ -93,20 +94,30 @@ class ChangePasswordView(APIView):
             return Response('Password is successfully updated')
 
 
-class UserProductView(ListAPIView):
-    serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
+# class UserProductView(ListAPIView):
+#     serializer_class = ProductSerializer
+#     permission_classes = [IsAuthenticated]
+#
+#     def get_queryset(self):
+#         email = self.request.user
+#         return Product.objects.filter(user_id=email)
+#
+#     def list(self, request, *args, **kwargs):
+#         queryset = self.get_queryset()
+#         serializer = ProductSerializer(queryset, many=True)
+#         return Response(serializer.data)
+
+
+class UserProfileView(UpdateAPIView, ListAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthorOrAdmin]
 
     def get_queryset(self):
         email = self.request.user
-        print(email)
-        return Product.objects.filter(user_id=email)
+        return User.objects.filter(email=email)
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
-        serializer = ProductSerializer(queryset, many=True)
+        serializer = UserProfileSerializer(queryset, many=True)
         return Response(serializer.data)
-
-
-
 

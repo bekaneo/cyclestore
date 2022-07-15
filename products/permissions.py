@@ -9,8 +9,6 @@ from rest_framework.permissions import IsAdminUser
 #         return request.user.is_authenticated and request.user == obj.user
 
 
-class IsAuthor(BasePermission):
+class IsAuthorOrAdmin(BasePermission):
     def has_object_permission(self, request, view, obj):
-        print(obj.user)
-        print(request.user.is_staff)
         return bool(request.user == obj.user or request.user.is_staff)

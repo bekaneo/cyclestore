@@ -4,6 +4,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from cycle import settings
+from products.serializers import ProductSerializer
 
 User = get_user_model()
 
@@ -121,9 +122,22 @@ class ChangePasswordSerializer(serializers.Serializer):
         user.set_password(password)
         user.save()
 
+
 # class UserProductSerializer(serializers.ModelSerializer):
 #     user = serializers.ReadOnlyField(source='user.email')
 #
 #     class Meta:
 #         model = Product
 #         fields = '__all__'
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email', 'name', 'phone_number', 'image']
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        serializer = ProductSerializer(instance.user.all(),
+                                       many=True, context=self.context)
+        representation['products'] = serializer.data
+        return representation
