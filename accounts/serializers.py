@@ -123,13 +123,6 @@ class ChangePasswordSerializer(serializers.Serializer):
         user.save()
 
 
-# class UserProductSerializer(serializers.ModelSerializer):
-#     user = serializers.ReadOnlyField(source='user.email')
-#
-#     class Meta:
-#         model = Product
-#         fields = '__all__'
-
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -141,3 +134,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
                                        many=True, context=self.context)
         representation['products'] = serializer.data
         return representation
+
+
+# class UserProfileUpdateSerializer(serializers.ModelSerializer):
+#     email =
+#     class Meta:
+#         model = User
+#         fields = '__all__'

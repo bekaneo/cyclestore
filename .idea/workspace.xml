@@ -5,20 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99958194-2e28-4564-9cb0-5d0e321173e7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e7bd8aa-0240-4e0b-bd3f-9d2fc12f6ca6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e7bd8aa-0240-4e0b-bd3f-9d2fc12f6ca6/storage_v2/_src_/database/cycle.5pirBQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e7bd8aa-0240-4e0b-bd3f-9d2fc12f6ca6/storage_v2/_src_/database/cycle.5pirBQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e7bd8aa-0240-4e0b-bd3f-9d2fc12f6ca6/storage_v2/_src_/database/cycle.5pirBQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e7bd8aa-0240-4e0b-bd3f-9d2fc12f6ca6/storage_v2/_src_/database/cycle.5pirBQ/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/categories/serializers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/categories/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/cyclestore.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cyclestore.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d963562-9f45-46c5-8219-7ee1503a7773.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6d963562-9f45-46c5-8219-7ee1503a7773.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cycle/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/cycle/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/products/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/permissions.py" beforeDir="false" afterPath="$PROJECT_DIR$/products/permissions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/products/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/categories/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/categories/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/categories/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/categories/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cycle/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/cycle/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/products/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/products/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,11 +48,14 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/beknazarnurbek/Documents/cyclestore&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Color Scheme Font&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
@@ -101,6 +106,12 @@
       <workItem from="1657862416008" duration="2232000" />
       <workItem from="1657867233379" duration="1823000" />
       <workItem from="1657872826647" duration="5355000" />
+      <workItem from="1657900428693" duration="284000" />
+      <workItem from="1657900725923" duration="307000" />
+      <workItem from="1657901036291" duration="754000" />
+      <workItem from="1657966276075" duration="921000" />
+      <workItem from="1658046581025" duration="8046000" />
+      <workItem from="1658081377530" duration="3077000" />
     </task>
     <servers />
   </component>

@@ -26,7 +26,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     email = models.EmailField(primary_key=True)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     phone_number = models.CharField(max_length=50, blank=True)
     image = models.ImageField(upload_to='posts', blank=True, null=True)
     is_active = models.BooleanField(default=False)
