@@ -5,22 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99958194-2e28-4564-9cb0-5d0e321173e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/categories/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/categories/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/cyclestore.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cyclestore.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d963562-9f45-46c5-8219-7ee1503a7773.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6d963562-9f45-46c5-8219-7ee1503a7773.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/categories/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/categories/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/categories/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/categories/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cycle/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/cycle/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/products/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/products/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +96,7 @@
       <workItem from="1657901036291" duration="754000" />
       <workItem from="1657966276075" duration="921000" />
       <workItem from="1658046581025" duration="8046000" />
-      <workItem from="1658081377530" duration="3077000" />
+      <workItem from="1658081377530" duration="3670000" />
     </task>
     <servers />
   </component>
