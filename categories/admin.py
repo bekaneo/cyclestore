@@ -11,7 +11,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Size)
 class SizeAdmin(admin.ModelAdmin):
     model = Size
-    list_display = ['size_in_cm', 'size_in_inch']
+    list_display = ['inch']
 
 
 @admin.register(Brand)
