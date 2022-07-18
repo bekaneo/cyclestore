@@ -1,12 +1,16 @@
 import datetime
 
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
 
 from .models import Product, ProductImage
+
+User = get_user_model()
 
 
 class ProductSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.email')
+    # name = serializers.ReadOnlyField(source='user.name')
 
     class Meta:
         model = Product
@@ -17,10 +21,12 @@ class ProductSerializer(serializers.ModelSerializer):
         serializer = ProductImageSerializer(instance.images.all(),
                                             many=True, context=self.context)
         representation['images'] = serializer.data
+        representation['username'] = User.objects.get(email=representation['user']).name
         return representation
 
     def save(self, **kwargs):
-        self.validated_data['user'] = self.context['request'].user
+        email = self.context['request'].user
+        self.validated_data['user'] = email
         self.validated_data['created_at'] = datetime.datetime.today()
         return super().save(**kwargs)
 
