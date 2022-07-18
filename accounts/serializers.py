@@ -138,7 +138,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 class UserProfileUpdateSerializer(serializers.ModelSerializer):
     email = serializers.ReadOnlyField(source='user.email')
-    is_active = serializers.ReadOnlyField(source='user.is_active')
+    # is_active = serializers.ReadOnlyField(source='user.is_active')
 
     class Meta:
         model = User

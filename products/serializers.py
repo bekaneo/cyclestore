@@ -10,7 +10,7 @@ User = get_user_model()
 
 class ProductSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.email')
-    name = serializers.ReadOnlyField(source='user.name')
+    # name = serializers.ReadOnlyField(source='user.name')
 
     class Meta:
         model = Product
@@ -21,13 +21,14 @@ class ProductSerializer(serializers.ModelSerializer):
         serializer = ProductImageSerializer(instance.images.all(),
                                             many=True, context=self.context)
         representation['images'] = serializer.data
+        representation['username'] = User.objects.get(email=representation['user']).name
         return representation
 
     def save(self, **kwargs):
         email = self.context['request'].user
         name = User.objects.get(email=email).name
         self.validated_data['user'] = email
-        self.validated_data['name'] = name
+        # self.validated_data['name'] = name
         self.validated_data['created_at'] = datetime.datetime.today()
         return super().save(**kwargs)
 

@@ -8,9 +8,9 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.viewsets import ModelViewSet
-from products.permissions import IsAuthorOrAdmin
+from .permissions import IsAuthorOrAdmin
 from products.serializers import ProductSerializer
 from .serializers import *
 from products.models import Product
@@ -122,7 +122,7 @@ class UserProfileView(ListAPIView):
         if self.request.method in ['GET']:
             self.permission_classes = [AllowAny]
         if self.request.method in ['PATCH', 'PUT']:
-            self.permission_classes = [IsAuthorOrAdmin]
+            self.permission_classes = [IsAdminUser]
         return super().get_permissions()
 
     def list(self, request, username, *args, **kwargs):
