@@ -10,7 +10,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.viewsets import ModelViewSet
-from .permissions import IsAuthorOrAdmin
+from .permissions import IsUserOrAdmin
 from products.serializers import ProductSerializer
 from .serializers import *
 from products.models import Product
@@ -111,6 +111,7 @@ class ChangePasswordView(APIView):
 class UserProfileView(ListAPIView):
     # queryset = User.objects.all()
     serializer_class = UserProfileSerializer
+    permission_classes = []
 
     def get_object(self, username):
         return User.objects.filter(name=username)
@@ -122,7 +123,7 @@ class UserProfileView(ListAPIView):
         if self.request.method in ['GET']:
             self.permission_classes = [AllowAny]
         if self.request.method in ['PATCH', 'PUT']:
-            self.permission_classes = [IsAdminUser]
+            self.permission_classes = [IsUserOrAdmin]
         return super().get_permissions()
 
     def list(self, request, username, *args, **kwargs):
@@ -133,22 +134,26 @@ class UserProfileView(ListAPIView):
         else:
             return Response('User not found', status=status.HTTP_404_NOT_FOUND)
 
-
     def patch(self, request, username, *args, **kwargs):
         instance = User.objects.get(name=username)
-        data = request.data
-        serializer = UserProfileUpdateSerializer(instance, data=data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
-        return Response('bad')
- # def update(self, request, username, *args, **kwargs):
-    #     instance = self.get_object(username)
-    #     serializer = self.get_serializer(instance, data=request.data, partial=True)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response('good')
-    #     return Response('bad')
+        print(type(instance.email))
+        # print(type())
+        if instance.email == str(request.user) or request.user.is_staff:
+            data = request.data
+            serializer = UserProfileUpdateSerializer(instance, data=data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+# def update(self, request, username, *args, **kwargs):
+#     instance = self.get_object(username)
+#     serializer = self.get_serializer(instance, data=request.data, partial=True)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response('good')
+#     return Response('bad')
 
 
 # class UserProfileViewSet(ModelViewSet):

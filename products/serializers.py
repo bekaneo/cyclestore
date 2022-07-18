@@ -26,9 +26,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def save(self, **kwargs):
         email = self.context['request'].user
-        name = User.objects.get(email=email).name
         self.validated_data['user'] = email
-        # self.validated_data['name'] = name
         self.validated_data['created_at'] = datetime.datetime.today()
         return super().save(**kwargs)
 
