@@ -11,7 +11,7 @@ User = get_user_model()
 
 class RegistrationSerializer(serializers.Serializer):
     email = serializers.EmailField()
-    # name = serializers.CharField()
+    name = serializers.CharField()
     password = serializers.CharField(min_length=4)
     password_confirm = serializers.CharField(min_length=4)
 
@@ -136,8 +136,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
         return representation
 
 
-# class UserProfileUpdateSerializer(serializers.ModelSerializer):
-#     email =
-#     class Meta:
-#         model = User
-#         fields = '__all__'
+class UserProfileUpdateSerializer(serializers.ModelSerializer):
+    email = serializers.ReadOnlyField(source='user.email')
+    is_active = serializers.ReadOnlyField(source='user.is_active')
+
+    class Meta:
+        model = User
+        fields = ['email', 'name', 'image', 'phone_number']

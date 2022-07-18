@@ -133,22 +133,22 @@ class UserProfileView(ListAPIView):
         else:
             return Response('User not found', status=status.HTTP_404_NOT_FOUND)
 
-    # def update(self, request, username, *args, **kwargs):
+
+    def patch(self, request, username, *args, **kwargs):
+        instance = User.objects.get(name=username)
+        data = request.data
+        serializer = UserProfileUpdateSerializer(instance, data=data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+        return Response('bad')
+ # def update(self, request, username, *args, **kwargs):
     #     instance = self.get_object(username)
     #     serializer = self.get_serializer(instance, data=request.data, partial=True)
     #     if serializer.is_valid():
     #         serializer.save()
     #         return Response('good')
     #     return Response('bad')
-    # def patch(self, request, username, *args, **kwargs):
-    #     instance = User.objects.get(name=username)
-    #     data = request.data
-    #     serializer = UserProfileUpdateSerializer(instance, data=data)
-    #     if serializer.is_valid(raise_exception=True):
-    #         serializer.save()
-    #         return Response(serializer.data)
-    #     return Response('bad')
-
 
 
 # class UserProfileViewSet(ModelViewSet):
