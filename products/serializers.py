@@ -4,6 +4,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
 from .models import Product, ProductImage
+from reviews.serializers import LikedProductSerializer
 
 User = get_user_model()
 
@@ -17,11 +18,13 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def to_representation(self, instance):
+        likes = LikedProductSerializer(instance.like.all(), many=True).data
         representation = super().to_representation(instance)
         serializer = ProductImageSerializer(instance.images.all(),
                                             many=True, context=self.context)
         representation['images'] = serializer.data
         representation['username'] = User.objects.get(email=representation['user']).name
+        representation['like'] = len(likes)
         return representation
 
     def save(self, **kwargs):
@@ -32,6 +35,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         images_data = self.context.get('view').request.FILES
+        print(images_data)
         product = Product.objects.create(**validated_data)
         for image in images_data.values():
             ProductImage.objects.create(product=product, image=image)

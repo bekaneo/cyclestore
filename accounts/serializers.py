@@ -5,6 +5,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from cycle import settings
 from products.serializers import ProductSerializer
+from reviews.serializers import LikedProductSerializer
 
 User = get_user_model()
 
@@ -130,9 +131,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
+
+        email = representation['email']
         serializer = ProductSerializer(instance.user.all(),
                                        many=True, context=self.context)
+        likes = LikedProductSerializer(instance.like.filter(user=email), many=True).data
+        res = []
+        # for like in likes:
+            # res.append(like['product'])
         representation['products'] = serializer.data
+        representation['like'] = likes
         return representation
 
 

@@ -108,10 +108,10 @@ class ChangePasswordView(APIView):
 #         return Response(serializer.data)
 
 
-class UserProfileView(ListAPIView):
+class UserProfileView(ListAPIView, UpdateAPIView):
     # queryset = User.objects.all()
     serializer_class = UserProfileSerializer
-    permission_classes = []
+    # permission_classes = []
 
     def get_object(self, username):
         return User.objects.filter(name=username)
@@ -120,6 +120,7 @@ class UserProfileView(ListAPIView):
         return User.objects.filter(name=username)
 
     def get_permissions(self):
+        print('permsssssssss')
         if self.request.method in ['GET']:
             self.permission_classes = [AllowAny]
         if self.request.method in ['PATCH', 'PUT']:
@@ -136,17 +137,28 @@ class UserProfileView(ListAPIView):
 
     def patch(self, request, username, *args, **kwargs):
         instance = User.objects.get(name=username)
-        print(type(instance.email))
+        print(self.permission_classes)
+        # print(type(instance.email))
         # print(type())
-        if instance.email == str(request.user) or request.user.is_staff:
-            data = request.data
-            serializer = UserProfileUpdateSerializer(instance, data=data)
-            if serializer.is_valid(raise_exception=True):
-                serializer.save()
-                return Response(serializer.data)
-        else:
-            return Response(status=status.HTTP_403_FORBIDDEN)
+        data = request.data
+        serializer = UserProfileUpdateSerializer(instance, data=data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+    # def patch(self, request, username, *args, **kwargs):
+    #     instance = User.objects.get(name=username)
+    #     # print(type(instance.email))
+    #     # print(type())
+    #     if instance.email == str(request.user) or request.user.is_staff:
+    #         data = request.data
+    #         serializer = UserProfileUpdateSerializer(instance, data=data)
+    #         if serializer.is_valid(raise_exception=True):
+    #             serializer.save()
+    #             return Response(serializer.data)
+    #     else:
+    #         return Response(status=status.HTTP_403_FORBIDDEN)
+    #     return Response(status=status.HTTP_400_BAD_REQUEST)
 # def update(self, request, username, *args, **kwargs):
 #     instance = self.get_object(username)
 #     serializer = self.get_serializer(instance, data=request.data, partial=True)
