@@ -6,13 +6,13 @@ from django.db import models
 
 User = get_user_model()
 
-COLORS = [
-    ('black', 'black'),
-    ('white', 'white'),
-    ('red', 'red'),
-    ('blue', 'blue'),
-    ('other', 'other')
-]
+# COLORS = [
+#     ('black', 'black'),
+#     ('white', 'white'),
+#     ('red', 'red'),
+#     ('blue', 'blue'),
+#     ('other', 'other')
+# ]
 
 
 class Product(models.Model):
@@ -25,7 +25,7 @@ class Product(models.Model):
                                  related_name='products')
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='subcategory')
     size = models.ForeignKey(Size, on_delete=models.CASCADE, related_name='size', blank=True)
-    color = models.CharField(max_length=20, choices=COLORS, default='other')
+    # color = models.CharField(max_length=20, choices=COLORS, default='other')
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
 

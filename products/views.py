@@ -10,7 +10,7 @@ from .permissions import IsAuthorOrAdmin
 
 
 class ProductViewSet(ModelViewSet):
-    queryset = Product.objects.all().order_by('created_at')
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [SearchFilter]
     search_fields = ['title', 'description']
