@@ -41,13 +41,14 @@ class ProductSerializer(serializers.ModelSerializer):
         print(images_data)
         product = Product.objects.create(**validated_data)
         for image in images_data.values():
-            ProductImage.objects.create(product=product, image=image)
+            ProductImage.objects.update_or_create(product=product, image=image)
         return product
 
     def update(self, instance, validated_data):
         images_data = self.context.get('view').request.FILES
-        print(validated_data)
+        # print(validated_data)
         Product.objects.update(**validated_data)
+        # ProductImage.objects.bulk_update(product_id=instance, image=images_data)
         for image in images_data.values():
             ProductImage.objects.update_or_create(product=instance, image=image)
         return super().update(instance, validated_data)
@@ -62,7 +63,7 @@ class ProductListSerializer(serializers.ModelSerializer):
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
-        fields = ('image',)
+        fields = ('id', 'image', 'product_id')
 
     def get_image_url(self, obj):
         if obj.image:
