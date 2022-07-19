@@ -1,8 +1,8 @@
-from .views import LikedProductVieSet
+from .views import LikedProductViewSet
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register('like', LikedProductVieSet)
+router.register('like', LikedProductViewSet)
 
 urlpatterns = []
 

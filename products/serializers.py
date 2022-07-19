@@ -11,6 +11,7 @@ User = get_user_model()
 
 class ProductSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.email')
+
     # name = serializers.ReadOnlyField(source='user.name')
 
     class Meta:
@@ -18,19 +19,21 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def to_representation(self, instance):
-        likes = LikedProductSerializer(instance.like.all(), many=True).data
+        # print(f'asdsadas {(instance.like.all())}')
+        # likes = LikedProductSerializer(instance.like.all(), many=True).data
         representation = super().to_representation(instance)
+        # print(likes)
         serializer = ProductImageSerializer(instance.images.all(),
                                             many=True, context=self.context)
         representation['images'] = serializer.data
         representation['username'] = User.objects.get(email=representation['user']).name
-        representation['like'] = len(likes)
+        # representation['like'] = likes
         return representation
 
     def save(self, **kwargs):
         email = self.context['request'].user
         self.validated_data['user'] = email
-        self.validated_data['created_at'] = datetime.datetime.today()
+        self.validated_data['created_at'] = datetime.datetime.now()
         return super().save(**kwargs)
 
     def create(self, validated_data):
@@ -40,6 +43,14 @@ class ProductSerializer(serializers.ModelSerializer):
         for image in images_data.values():
             ProductImage.objects.create(product=product, image=image)
         return product
+
+    def update(self, instance, validated_data):
+        images_data = self.context.get('view').request.FILES
+        print(validated_data)
+        Product.objects.update(**validated_data)
+        for image in images_data.values():
+            ProductImage.objects.update_or_create(product=instance, image=image)
+        return super().update(instance, validated_data)
 
 
 class ProductListSerializer(serializers.ModelSerializer):

@@ -24,9 +24,8 @@ class ProductViewSet(ModelViewSet):
             self.permission_classes = [IsAuthorOrAdmin]
         return super().get_permissions()
 
-    # def create(self, request, *args, **kwargs):
-    #     print(request.data)
-    #     return super().create(request, *args, **kwargs)
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
 
 
 class ProductImagesViewSet(ModelViewSet):
