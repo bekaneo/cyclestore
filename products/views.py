@@ -6,7 +6,7 @@ from rest_framework.generics import ListCreateAPIView
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from .permissions import IsAuthorOrAdmin
+from .permissions import IsAuthorOrAdmin, IsImageAuthorOrAdmin
 
 
 class ProductViewSet(ModelViewSet):
@@ -38,5 +38,5 @@ class ProductImagesViewSet(ModelViewSet):
         if self.action in ['create']:
             self.permission_classes = [permissions.IsAuthenticated]
         if self.action in ['destroy', 'update', 'partial_update']:
-            self.permission_classes = [IsAuthorOrAdmin]
+            self.permission_classes = [IsImageAuthorOrAdmin]
         return super().get_permissions()
