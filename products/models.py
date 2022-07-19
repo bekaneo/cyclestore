@@ -27,6 +27,7 @@ class Product(models.Model):
     size = models.ForeignKey(Size, on_delete=models.CASCADE, related_name='size', blank=True)
     # color = models.CharField(max_length=20, choices=COLORS, default='other')
     created_at = models.DateTimeField(auto_now_add=True)
+    views = models.PositiveSmallIntegerField(default=0)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

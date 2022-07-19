@@ -111,41 +111,51 @@ class ChangePasswordView(APIView):
 class UserProfileView(ListAPIView, UpdateAPIView):
     # queryset = User.objects.all()
     serializer_class = UserProfileSerializer
+
     # permission_classes = []
-
-    def get_object(self, username):
-        return User.objects.filter(name=username)
-
-    def get_queryset(self, username):
-        return User.objects.filter(name=username)
+    #
+    # def get_object(self, username):
+    #     return User.objects.filter(name=username)
+    #
+    # def get_queryset(self,):
+    #     return User.objects.filter(name=username)
 
     def get_permissions(self):
-        print('permsssssssss')
         if self.request.method in ['GET']:
-            self.permission_classes = [AllowAny]
+            self.permission_classes = [IsAuthenticated]
         if self.request.method in ['PATCH', 'PUT']:
             self.permission_classes = [IsUserOrAdmin]
         return super().get_permissions()
 
-    def list(self, request, username, *args, **kwargs):
-        queryset = self.get_queryset(username)
-        serializer = UserProfileSerializer(queryset, many=True)
+    def list(self, request, *args, **kwargs):
+        queryset = User.objects.get(email=request.user)
+        print(queryset)
+        serializer = UserProfileSerializer(queryset)
         if serializer.data:
             return Response(serializer.data)
         else:
             return Response('User not found', status=status.HTTP_404_NOT_FOUND)
 
-    def patch(self, request, username, *args, **kwargs):
-        instance = User.objects.get(name=username)
-        print(self.permission_classes)
-        # print(type(instance.email))
-        # print(type())
-        data = request.data
-        serializer = UserProfileUpdateSerializer(instance, data=data)
+    def patch(self, request, *args, **kwargs):
+        instance = User.objects.get(email=request.user)
+        serializer = UserProfileUpdateSerializer(instance, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProfileView(ListAPIView):
+    serializer_class = UserProfileSerializer
+
+    def list(self, request, username, *args, **kwargs):
+        queryset = User.objects.get(name=username)
+        serializer = ProfileSerializer(queryset)
+        if serializer.data:
+            return Response(serializer.data)
+        else:
+            return Response('User not found', status=status.HTTP_404_NOT_FOUND)
+
     # def patch(self, request, username, *args, **kwargs):
     #     instance = User.objects.get(name=username)
     #     # print(type(instance.email))

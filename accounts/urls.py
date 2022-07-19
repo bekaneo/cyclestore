@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.routers import DefaultRouter
 from .views import (RegistrationView, ActivationView, LoginView, UpdateTokenView,
                     LogoutView, RestorePasswordView, RestorePasswordCompleteView,
-                    ChangePasswordView,)
+                    ChangePasswordView, ProfileView)
 from .views import UserProfileView
 
 # router = DefaultRouter()
@@ -19,6 +19,7 @@ urlpatterns = [
     path('restore_complete/', RestorePasswordCompleteView.as_view()),
     path('change_password/', ChangePasswordView.as_view()),
     # path('/', UserProductView.as_view()),
-    path('profile/<str:username>', UserProfileView.as_view())
+    path('profile/', UserProfileView.as_view()),
+    path('profile/<str:username>', ProfileView.as_view())
 ]
 # urlpatterns += router.urls

@@ -4,7 +4,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
 from .models import Product, ProductImage
-from reviews.serializers import LikedProductSerializer
+from reviews.serializers import LikedProductSerializer, CommentProductSerializer
 
 User = get_user_model()
 
@@ -23,9 +23,11 @@ class ProductSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         serializer = ProductImageSerializer(instance.images.all(),
                                             many=True, context=self.context)
+        comment = CommentProductSerializer(instance.comment.all(), many=True)
         representation['images'] = serializer.data
         representation['username'] = User.objects.get(email=representation['user']).name
         representation['like'] = len(likes)
+        representation['comments'] = len(comment.data)
         return representation
 
     def save(self, **kwargs):
@@ -52,10 +54,25 @@ class ProductSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
-class ProductListSerializer(serializers.ModelSerializer):
+class ProductRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['title', 'description', 'price', 'user']
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['username'] = User.objects.get(email=representation['user']).name
+        likes = LikedProductSerializer(instance.like.all(), many=True).data
+        recommendation = Product.objects.filter(category=representation['category'])[:5]
+        recommendation = ProductSerializer(recommendation, many=True)
+        comment = CommentProductSerializer(instance.comment.all(), many=True)
+        serializer = ProductImageSerializer(instance.images.all(),
+                                            many=True, context=self.context)
+        representation['images'] = serializer.data
+        representation['comments'] = comment.data
+        representation['like'] = len(likes)
+        representation['recommendation'] = recommendation.data
+        return representation
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
