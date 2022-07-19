@@ -19,15 +19,13 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def to_representation(self, instance):
-        # print(f'asdsadas {(instance.like.all())}')
-        # likes = LikedProductSerializer(instance.like.all(), many=True).data
+        likes = LikedProductSerializer(instance.like.all(), many=True).data
         representation = super().to_representation(instance)
-        # print(likes)
         serializer = ProductImageSerializer(instance.images.all(),
                                             many=True, context=self.context)
         representation['images'] = serializer.data
         representation['username'] = User.objects.get(email=representation['user']).name
-        # representation['like'] = likes
+        representation['like'] = len(likes)
         return representation
 
     def save(self, **kwargs):

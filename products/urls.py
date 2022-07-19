@@ -8,3 +8,5 @@ router.register('images', ProductImagesViewSet)
 urlpatterns = []
 
 urlpatterns += router.urls
+
+

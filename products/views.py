@@ -32,3 +32,11 @@ class ProductImagesViewSet(ModelViewSet):
     queryset = ProductImage.objects.all()
     serializer_class = ProductImageSerializer
 
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            self.permission_classes = [permissions.AllowAny]
+        if self.action in ['create']:
+            self.permission_classes = [permissions.IsAuthenticated]
+        if self.action in ['destroy', 'update', 'partial_update']:
+            self.permission_classes = [IsAuthorOrAdmin]
+        return super().get_permissions()
