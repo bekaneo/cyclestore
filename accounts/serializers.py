@@ -157,9 +157,21 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class UserProfileUpdateSerializer(serializers.ModelSerializer):
-    # email = serializers.ReadOnlyField(source='user.email')
+    email = serializers.ReadOnlyField(source='user.email')
+
     # is_active = serializers.ReadOnlyField(source='user.is_active')
 
     class Meta:
         model = User
-        fields = ['image', 'phone_number']
+        fields = ['email', 'image', 'phone_number']
+
+    def validate_phone_number(self, phone_number):
+        print(len(phone_number))
+        if not 7 < len(phone_number) < 12:
+            raise serializers.ValidationError('Not valid phone number')
+        if not phone_number.isdigit():
+            raise serializers.ValidationError('Phone number should only contain digits')
+        return phone_number
+
+    def validate(self, attrs):
+        return super().validate(attrs)
