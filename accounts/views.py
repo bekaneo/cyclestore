@@ -129,7 +129,6 @@ class UserProfileView(ListAPIView, UpdateAPIView):
 
     def list(self, request, *args, **kwargs):
         queryset = User.objects.get(email=request.user)
-        print(queryset)
         serializer = UserProfileSerializer(queryset)
         if serializer.data:
             return Response(serializer.data)
