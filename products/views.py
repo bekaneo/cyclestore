@@ -24,12 +24,17 @@ class ProductViewSet(ModelViewSet):
     filterset_class = ProductPriceFilter
     permission_classes = [permissions.AllowAny]
 
+    def list(self, request, *args, **kwargs):
+        serializer = ProductSerializer(self.get_queryset(), context={'request': request}, many=True)
+        return Response(serializer.data)
+
     def retrieve(self, request, *args, **kwargs):
         product = self.get_object()
         product.views += 1
         product.save()
-        self.serializer_class = ProductRetrieveSerializer
-        return super().retrieve(request, *args, **kwargs)
+        instance = self.get_queryset()
+        serializer = ProductRetrieveSerializer(instance, context={'request': request}, many=True)
+        return Response(serializer.data)
 
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
@@ -47,7 +52,6 @@ class ProductViewSet(ModelViewSet):
             user = request.user
             try:
                 like = LikedProduct.objects.filter(product_id=product, user=user)
-                print(len(like))
                 if len(like):
                     like.delete()
                     message = 'like removed'

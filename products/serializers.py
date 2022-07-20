@@ -4,7 +4,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
 from .models import Product, ProductImage
-from reviews.serializers import LikedProductSerializer, CommentProductSerializer
+from reviews.serializers import LikedProductSerializer, CommentProductSerializer, FavoriteProductSerializer
 
 User = get_user_model()
 
@@ -19,8 +19,20 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def to_representation(self, instance):
+        request = self.context.get('request')
         likes = LikedProductSerializer(instance.like.all(), many=True).data
         representation = super().to_representation(instance)
+        representation['is_author'] = str(self.context.get('request').user) == str(representation['user'])
+        try:
+            is_liked = LikedProductSerializer(instance.like.get(user=request.user, product=representation['id'])).data
+            representation['is_liked'] = True
+        except:
+            representation['is_liked'] = False
+        try:
+            is_liked = FavoriteProductSerializer(instance.like.get(user=request.user, product=representation['id'])).data
+            representation['is_favorite'] = True
+        except:
+            representation['is_favorite'] = False
         serializer = ProductImageSerializer(instance.images.all(),
                                             many=True, context=self.context)
         comment = CommentProductSerializer(instance.comment.all(), many=True)
@@ -28,6 +40,8 @@ class ProductSerializer(serializers.ModelSerializer):
         representation['username'] = User.objects.get(email=representation['user']).name
         representation['like'] = len(likes)
         representation['comments'] = len(comment.data)
+
+
         return representation
 
     def save(self, **kwargs):
@@ -38,7 +52,6 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         images_data = self.context.get('view').request.FILES
-        print(images_data)
         product = Product.objects.create(**validated_data)
         for image in images_data.values():
             ProductImage.objects.update_or_create(product=product, image=image)
@@ -46,9 +59,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         images_data = self.context.get('view').request.FILES
-        # print(validated_data)
         Product.objects.update(**validated_data)
-        # ProductImage.objects.bulk_update(product_id=instance, image=images_data)
         for image in images_data.values():
             ProductImage.objects.update_or_create(product=instance, image=image)
         return super().update(instance, validated_data)
@@ -61,17 +72,31 @@ class ProductRetrieveSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
+        request = self.context.get('request')
         representation['username'] = User.objects.get(email=representation['user']).name
-        likes = LikedProductSerializer(instance.like.all(), many=True).data
+        representation['is_author'] = str(self.context.get('request').user) == str(representation['user'])
+        likes = LikedProductSerializer(instance.like.all(), many=True, context={'request': request}).data
         recommendation = Product.objects.filter(category=representation['category'])[:5]
-        recommendation = ProductSerializer(recommendation, many=True)
-        comment = CommentProductSerializer(instance.comment.all(), many=True)
+        recommendation = ProductSerializer(recommendation, many=True, context={'request': request})
+        comment = CommentProductSerializer(instance.comment.all(), many=True, context={'request': request})
         serializer = ProductImageSerializer(instance.images.all(),
-                                            many=True, context=self.context)
+                                            many=True, context={'request': request})
+        try:
+            is_liked = FavoriteProductSerializer(instance.like.get(user=request.user, product=representation['id'])).data
+            representation['is_liked'] = True
+        except:
+            representation['is_liked'] = False
+        try:
+            is_liked = FavoriteProductSerializer(instance.like.get(user=request.user, product=representation['id'])).data
+            representation['is_favorite'] = True
+        except:
+            representation['is_favorite'] = False
         representation['images'] = serializer.data
         representation['comments'] = comment.data
         representation['like'] = len(likes)
         representation['recommendation'] = recommendation.data
+        representation['is_author'] = str(self.context.get('request').user) == str(representation['user'])
+
         return representation
 
 

@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/cycle</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="cycle@localhost [2]" uuid="dcfbd86c-f5dd-499e-90b4-a1bf22934458">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/cycle</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
