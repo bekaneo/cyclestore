@@ -2,9 +2,9 @@ from .views import LikedProductViewSet, CommentProductViewSet, FavoriteProductVi
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register('like', LikedProductViewSet)
+# router.register('like', LikedProductViewSet)
 router.register('comment', CommentProductViewSet)
-router.register('favorite', FavoriteProductViewSet)
+# router.register('favorite', FavoriteProductViewSet)
 urlpatterns = []
 
 urlpatterns += router.urls

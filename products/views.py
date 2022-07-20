@@ -60,22 +60,27 @@ class ProductViewSet(ModelViewSet):
             return Response(message, status=200)
         else:
             return Response('Requires authentication', status=status.HTTP_403_FORBIDDEN)
-        # @action(['GET'], detail=True)
-        # def favorite(self, request, pk=None):
-        #     product = self.get_object()
-        #     user = request.user
-        #     try:
-        #         favorites = Favorites.objects.filter(product_id=product, author=user)
-        #         res = not favorites[0].favorites
-        #         if res:
-        #             favorites[0].save()
-        #         else:
-        #             favorites.delete()
-        #         message = 'In favorites' if favorites else 'Not in favorites'
-        #     except IndexError:
-        #         Favorites.objects.create(product_id=product.id, author=user, favorites=True)
-        #         message = 'In favorites'
-        #     return Response(message, status=200)
+
+    @action(['GET'], detail=True)
+    def favorite(self, request, pk=None):
+        if request.user.is_authenticated:
+            product = self.get_object()
+            user = request.user
+            try:
+                like = FavoriteProduct.objects.filter(product_id=product, user=user)
+                if len(like):
+                    like.delete()
+                    message = 'deleted from favorite'
+                else:
+                    FavoriteProduct.objects.create(product_id=product.id, user_id=user)
+
+                    message = 'added to favorite'
+            except IndexError:
+                FavoriteProduct.objects.create(product_id=product.id, user_id=user)
+                message = 'Like'
+            return Response(message, status=200)
+        else:
+            return Response('Requires authentication', status=status.HTTP_403_FORBIDDEN)
 
 
 class ProductImagesViewSet(ModelViewSet):
