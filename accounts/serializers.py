@@ -153,7 +153,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
 
-        email = representation['email']
         serializer = ProductSerializer(instance.user.all(),
                                        many=True, context=self.context)
         representation['products'] = serializer.data
@@ -162,8 +161,6 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class UserProfileUpdateSerializer(serializers.ModelSerializer):
     email = serializers.ReadOnlyField(source='user.email')
-
-    # is_active = serializers.ReadOnlyField(source='user.is_active')
 
     class Meta:
         model = User
@@ -177,5 +174,3 @@ class UserProfileUpdateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('Phone number should only contain digits')
         return phone_number
 
-    def validate(self, attrs):
-        return super().validate(attrs)

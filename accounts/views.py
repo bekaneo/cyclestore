@@ -94,31 +94,8 @@ class ChangePasswordView(APIView):
             return Response('Password is successfully updated')
 
 
-# class UserProductView(ListAPIView):
-#     serializer_class = ProductSerializer
-#     permission_classes = [IsAuthenticated]
-#
-#     def get_queryset(self):
-#         email = self.request.user
-#         return Product.objects.filter(user_id=email)
-#
-#     def list(self, request, *args, **kwargs):
-#         queryset = self.get_queryset()
-#         serializer = ProductSerializer(queryset, many=True)
-#         return Response(serializer.data)
-
-
 class UserProfileView(ListAPIView, UpdateAPIView):
-    # queryset = User.objects.all()
     serializer_class = UserProfileSerializer
-
-    # permission_classes = []
-    #
-    # def get_object(self, username):
-    #     return User.objects.filter(name=username)
-    #
-    # def get_queryset(self,):
-    #     return User.objects.filter(name=username)
 
     def get_permissions(self):
         if self.request.method in ['GET']:
@@ -154,40 +131,3 @@ class ProfileView(ListAPIView):
             return Response(serializer.data)
         else:
             return Response('User not found', status=status.HTTP_404_NOT_FOUND)
-
-    # def patch(self, request, username, *args, **kwargs):
-    #     instance = User.objects.get(name=username)
-    #     # print(type(instance.email))
-    #     # print(type())
-    #     if instance.email == str(request.user) or request.user.is_staff:
-    #         data = request.data
-    #         serializer = UserProfileUpdateSerializer(instance, data=data)
-    #         if serializer.is_valid(raise_exception=True):
-    #             serializer.save()
-    #             return Response(serializer.data)
-    #     else:
-    #         return Response(status=status.HTTP_403_FORBIDDEN)
-    #     return Response(status=status.HTTP_400_BAD_REQUEST)
-# def update(self, request, username, *args, **kwargs):
-#     instance = self.get_object(username)
-#     serializer = self.get_serializer(instance, data=request.data, partial=True)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response('good')
-#     return Response('bad')
-
-
-# class UserProfileViewSet(ModelViewSet):
-#     serializer_class = UserProfileSerializer
-#
-#     permission_classes = [AllowAny]
-#
-#     def get_queryset(self, username):
-#         return User.objects.filter(name=username)
-#
-#     def get_permissions(self):
-#         if self.action in ['list', 'retrieve']:
-#             self.permission_classes = [permissions.AllowAny]
-#         if self.action in ['update', 'partial_update']:
-#             self.permission_classes = [IsAuthorOrAdmin]
-#         return super().get_permissions()

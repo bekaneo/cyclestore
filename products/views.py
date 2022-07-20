@@ -17,13 +17,16 @@ from .permissions import IsAuthorOrAdmin, IsImageAuthorOrAdmin
 
 
 class ProductViewSet(ModelViewSet):
-    queryset = Product.objects.all().order_by('created_at')
+    queryset = Product.objects.all().order_by('id')
     serializer_class = ProductSerializer
     filter_backends = [SearchFilter, DjangoFilterBackend]
     search_fields = ['title', 'description']
     filterset_class = ProductPriceFilter
     permission_classes = [permissions.AllowAny]
 
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     return Product.objects.exclude(user=user).order_by('id')
     def retrieve(self, request, *args, **kwargs):
         product = self.get_object()
         product.views += 1
