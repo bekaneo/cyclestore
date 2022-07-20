@@ -4,6 +4,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
 from .models import Product, ProductImage
+from reviews.models import LikedProduct, FavoriteProduct
 from reviews.serializers import LikedProductSerializer, CommentProductSerializer, FavoriteProductSerializer
 
 User = get_user_model()
@@ -24,12 +25,12 @@ class ProductSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         representation['is_author'] = str(self.context.get('request').user) == str(representation['user'])
         try:
-            is_liked = LikedProductSerializer(instance.like.get(user=request.user, product=representation['id'])).data
+            LikedProductSerializer(instance.like.get(user=request.user, product=representation['id']))
             representation['is_liked'] = True
         except:
             representation['is_liked'] = False
         try:
-            is_liked = FavoriteProductSerializer(instance.like.get(user=request.user, product=representation['id'])).data
+            FavoriteProductSerializer(instance.favorite.get(user=request.user, product=representation['id']))
             representation['is_favorite'] = True
         except:
             representation['is_favorite'] = False
@@ -40,7 +41,6 @@ class ProductSerializer(serializers.ModelSerializer):
         representation['username'] = User.objects.get(email=representation['user']).name
         representation['like'] = len(likes)
         representation['comments'] = len(comment.data)
-
 
         return representation
 
@@ -82,12 +82,12 @@ class ProductRetrieveSerializer(serializers.ModelSerializer):
         serializer = ProductImageSerializer(instance.images.all(),
                                             many=True, context={'request': request})
         try:
-            is_liked = FavoriteProductSerializer(instance.like.get(user=request.user, product=representation['id'])).data
+            LikedProductSerializer(instance.like.get(user=request.user, product=representation['id']))
             representation['is_liked'] = True
         except:
             representation['is_liked'] = False
         try:
-            is_liked = FavoriteProductSerializer(instance.like.get(user=request.user, product=representation['id'])).data
+            FavoriteProductSerializer(instance.favorite.get(user=request.user, product=representation['id']))
             representation['is_favorite'] = True
         except:
             representation['is_favorite'] = False
@@ -95,7 +95,6 @@ class ProductRetrieveSerializer(serializers.ModelSerializer):
         representation['comments'] = comment.data
         representation['like'] = len(likes)
         representation['recommendation'] = recommendation.data
-        representation['is_author'] = str(self.context.get('request').user) == str(representation['user'])
 
         return representation
 

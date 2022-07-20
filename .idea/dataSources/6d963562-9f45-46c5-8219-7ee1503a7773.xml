@@ -788,8 +788,9 @@ false Z
 false Zulu
 </TimeZones>
     </root>
-    <database id="2" parent="1" name="beknazarnurbek">
-      <ObjectId>16387</ObjectId>
+    <database id="2" parent="1" name="postgres">
+      <Comment>default administrative connection database</Comment>
+      <ObjectId>14023</ObjectId>
       <OwnerName>beknazarnurbek</OwnerName>
     </database>
     <database id="3" parent="1" name="cycle">
@@ -821,17 +822,11 @@ sequence|table|16689|16690|1
 </Relations>
       <OwnerName>beknazarnurbek</OwnerName>
     </database>
-    <database id="4" parent="1" name="postgres">
-      <Comment>default administrative connection database</Comment>
-      <ObjectId>14023</ObjectId>
+    <database id="4" parent="1" name="beknazarnurbek">
+      <ObjectId>16387</ObjectId>
       <OwnerName>beknazarnurbek</OwnerName>
     </database>
-    <role id="5" parent="1" name="bekaneo">
-      <CanLogin>1</CanLogin>
-      <ObjectId>16384</ObjectId>
-      <SuperRole>1</SuperRole>
-    </role>
-    <role id="6" parent="1" name="beknazarnurbek">
+    <role id="5" parent="1" name="beknazarnurbek">
       <BypassRls>1</BypassRls>
       <CanLogin>1</CanLogin>
       <CreateDb>1</CreateDb>
@@ -840,11 +835,14 @@ sequence|table|16689|16690|1
       <Replication>1</Replication>
       <SuperRole>1</SuperRole>
     </role>
-    <role id="7" parent="1" name="pg_database_owner">
+    <role id="6" parent="1" name="pg_database_owner">
       <ObjectId>6171</ObjectId>
     </role>
-    <role id="8" parent="1" name="pg_execute_server_program">
-      <ObjectId>4571</ObjectId>
+    <role id="7" parent="1" name="pg_read_all_data">
+      <ObjectId>6181</ObjectId>
+    </role>
+    <role id="8" parent="1" name="pg_write_all_data">
+      <ObjectId>6182</ObjectId>
     </role>
     <role id="9" parent="1" name="pg_monitor">
       <ObjectId>3373</ObjectId>
@@ -852,29 +850,31 @@ sequence|table|16689|16690|1
 3375
 3377</RoleGrants>
     </role>
-    <role id="10" parent="1" name="pg_read_all_data">
-      <ObjectId>6181</ObjectId>
-    </role>
-    <role id="11" parent="1" name="pg_read_all_settings">
+    <role id="10" parent="1" name="pg_read_all_settings">
       <ObjectId>3374</ObjectId>
     </role>
-    <role id="12" parent="1" name="pg_read_all_stats">
+    <role id="11" parent="1" name="pg_read_all_stats">
       <ObjectId>3375</ObjectId>
+    </role>
+    <role id="12" parent="1" name="pg_stat_scan_tables">
+      <ObjectId>3377</ObjectId>
     </role>
     <role id="13" parent="1" name="pg_read_server_files">
       <ObjectId>4569</ObjectId>
     </role>
-    <role id="14" parent="1" name="pg_signal_backend">
+    <role id="14" parent="1" name="pg_write_server_files">
+      <ObjectId>4570</ObjectId>
+    </role>
+    <role id="15" parent="1" name="pg_execute_server_program">
+      <ObjectId>4571</ObjectId>
+    </role>
+    <role id="16" parent="1" name="pg_signal_backend">
       <ObjectId>4200</ObjectId>
     </role>
-    <role id="15" parent="1" name="pg_stat_scan_tables">
-      <ObjectId>3377</ObjectId>
-    </role>
-    <role id="16" parent="1" name="pg_write_all_data">
-      <ObjectId>6182</ObjectId>
-    </role>
-    <role id="17" parent="1" name="pg_write_server_files">
-      <ObjectId>4570</ObjectId>
+    <role id="17" parent="1" name="bekaneo">
+      <CanLogin>1</CanLogin>
+      <ObjectId>16384</ObjectId>
+      <SuperRole>1</SuperRole>
     </role>
     <tablespace id="18" parent="1" name="pg_default">
       <ObjectId>1663</ObjectId>
