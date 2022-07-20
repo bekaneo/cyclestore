@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99958194-2e28-4564-9cb0-5d0e321173e7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d963562-9f45-46c5-8219-7ee1503a7773.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6d963562-9f45-46c5-8219-7ee1503a7773.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d963562-9f45-46c5-8219-7ee1503a7773/storage_v2/_src_/database/cycle.5pirBQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d963562-9f45-46c5-8219-7ee1503a7773/storage_v2/_src_/database/cycle.5pirBQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d963562-9f45-46c5-8219-7ee1503a7773/storage_v2/_src_/database/cycle.5pirBQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6d963562-9f45-46c5-8219-7ee1503a7773/storage_v2/_src_/database/cycle.5pirBQ/schema/public.abK9xQ.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/products/filters.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/products/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/products/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/products/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -109,7 +100,7 @@
       <workItem from="1658081377530" duration="41628000" />
       <workItem from="1658250751495" duration="5713000" />
       <workItem from="1658305216265" duration="5279000" />
-      <workItem from="1658322754556" duration="761000" />
+      <workItem from="1658322754556" duration="1818000" />
     </task>
     <servers />
   </component>

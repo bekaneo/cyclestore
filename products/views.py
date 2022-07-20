@@ -17,23 +17,18 @@ from .permissions import IsAuthorOrAdmin, IsImageAuthorOrAdmin
 
 
 class ProductViewSet(ModelViewSet):
-    queryset = Product.objects.all().order_by('created_at')
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [SearchFilter, DjangoFilterBackend]
     search_fields = ['title', 'description']
     filterset_class = ProductPriceFilter
     permission_classes = [permissions.AllowAny]
 
-    def list(self, request, *args, **kwargs):
-        serializer = ProductSerializer(self.get_queryset(), context={'request': request}, many=True)
-        return Response(serializer.data)
-
     def retrieve(self, request, *args, **kwargs):
         product = self.get_object()
         product.views += 1
         product.save()
-        instance = self.get_queryset()
-        serializer = ProductRetrieveSerializer(instance, context={'request': request}, many=True)
+        serializer = ProductRetrieveSerializer(product, context={'request': request})
         return Response(serializer.data)
 
     def get_permissions(self):
