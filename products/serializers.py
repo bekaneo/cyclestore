@@ -23,7 +23,7 @@ class ProductSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         likes = LikedProductSerializer(instance.like.all(), many=True, context={'request': request}).data
         representation = super().to_representation(instance)
-        # representation['username'] = User.objects.get(email=representation['user']).name
+        representation['username'] = User.objects.get(email=representation['user']).name
         representation['is_author'] = str(self.context.get('request').user) == str(representation['user'])
         try:
             LikedProductSerializer(instance.like.get(user=request.user, product=representation['id'], context={'request': request}))
@@ -74,7 +74,7 @@ class ProductRetrieveSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         request = self.context.get('request')
         representation['is_author'] = str(self.context.get('request').user) == str(representation['user'])
-        # representation['username'] = User.objects.get(email=representation['user']).name
+        representation['username'] = User.objects.get(email=representation['user']).name
         likes = LikedProductSerializer(instance.like.all(), many=True, context={'request': request}).data
         recommendation = Product.objects.filter(category=representation['category'])[:5]
         recommendation = ProductSerializer(recommendation, many=True, context={'request': request})
