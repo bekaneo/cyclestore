@@ -129,7 +129,7 @@ class UserProfileView(ListAPIView, UpdateAPIView):
 
     def list(self, request, *args, **kwargs):
         queryset = User.objects.get(email=request.user)
-        serializer = UserProfileSerializer(queryset)
+        serializer = UserProfileSerializer(queryset, context={'request': request})
         if serializer.data:
             return Response(serializer.data)
         else:
@@ -149,7 +149,7 @@ class ProfileView(ListAPIView):
 
     def list(self, request, username, *args, **kwargs):
         queryset = User.objects.get(name=username)
-        serializer = ProfileSerializer(queryset)
+        serializer = ProfileSerializer(queryset, context={'request': request})
         if serializer.data:
             return Response(serializer.data)
         else:

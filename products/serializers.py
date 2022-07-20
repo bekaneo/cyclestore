@@ -21,24 +21,24 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         request = self.context.get('request')
-        likes = LikedProductSerializer(instance.like.all(), many=True).data
+        likes = LikedProductSerializer(instance.like.all(), many=True, context={'request': request}).data
         representation = super().to_representation(instance)
+        # representation['username'] = User.objects.get(email=representation['user']).name
         representation['is_author'] = str(self.context.get('request').user) == str(representation['user'])
         try:
-            LikedProductSerializer(instance.like.get(user=request.user, product=representation['id']))
+            LikedProductSerializer(instance.like.get(user=request.user, product=representation['id'], context={'request': request}))
             representation['is_liked'] = True
         except:
             representation['is_liked'] = False
         try:
-            FavoriteProductSerializer(instance.favorite.get(user=request.user, product=representation['id']))
+            FavoriteProductSerializer(instance.favorite.get(user=request.user, product=representation['id'], context={'request': request}))
             representation['is_favorite'] = True
         except:
             representation['is_favorite'] = False
         serializer = ProductImageSerializer(instance.images.all(),
-                                            many=True, context=self.context)
-        comment = CommentProductSerializer(instance.comment.all(), many=True)
+                                            many=True, context={'request': request})
+        comment = CommentProductSerializer(instance.comment.all(), many=True, context={'request': request})
         representation['images'] = serializer.data
-        representation['username'] = User.objects.get(email=representation['user']).name
         representation['like'] = len(likes)
         representation['comments'] = len(comment.data)
 
@@ -73,8 +73,8 @@ class ProductRetrieveSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         request = self.context.get('request')
-        representation['username'] = User.objects.get(email=representation['user']).name
         representation['is_author'] = str(self.context.get('request').user) == str(representation['user'])
+        # representation['username'] = User.objects.get(email=representation['user']).name
         likes = LikedProductSerializer(instance.like.all(), many=True, context={'request': request}).data
         recommendation = Product.objects.filter(category=representation['category'])[:5]
         recommendation = ProductSerializer(recommendation, many=True, context={'request': request})
@@ -82,18 +82,18 @@ class ProductRetrieveSerializer(serializers.ModelSerializer):
         serializer = ProductImageSerializer(instance.images.all(),
                                             many=True, context={'request': request})
         try:
-            LikedProductSerializer(instance.like.get(user=request.user, product=representation['id']))
+            LikedProductSerializer(instance.like.get(user=request.user, product=representation['id'], context={'request': request}))
             representation['is_liked'] = True
         except:
             representation['is_liked'] = False
         try:
-            FavoriteProductSerializer(instance.favorite.get(user=request.user, product=representation['id']))
+            FavoriteProductSerializer(instance.favorite.get(user=request.user, product=representation['id'], context={'request': request}))
             representation['is_favorite'] = True
         except:
             representation['is_favorite'] = False
+        representation['like'] = len(likes)
         representation['images'] = serializer.data
         representation['comments'] = comment.data
-        representation['like'] = len(likes)
         representation['recommendation'] = recommendation.data
 
         return representation
