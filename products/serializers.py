@@ -26,14 +26,16 @@ class ProductSerializer(serializers.ModelSerializer):
         representation['username'] = User.objects.get(email=representation['user']).name
         representation['is_author'] = str(self.context.get('request').user) == str(representation['user'])
         try:
-            LikedProductSerializer(instance.like.get(user=request.user, product=representation['id'], context={'request': request}))
+            LikedProductSerializer(
+                instance.like.get(user=request.user, product=representation['id']), context={'request': request})
             representation['is_liked'] = True
-        except:
+        except LikedProduct.DoesNotExist:
             representation['is_liked'] = False
         try:
-            FavoriteProductSerializer(instance.favorite.get(user=request.user, product=representation['id'], context={'request': request}))
+            FavoriteProductSerializer(
+                instance.favorite.get(user=request.user, product=representation['id']), context={'request': request})
             representation['is_favorite'] = True
-        except:
+        except FavoriteProduct.DoesNotExist:
             representation['is_favorite'] = False
         serializer = ProductImageSerializer(instance.images.all(),
                                             many=True, context={'request': request})
@@ -82,14 +84,16 @@ class ProductRetrieveSerializer(serializers.ModelSerializer):
         serializer = ProductImageSerializer(instance.images.all(),
                                             many=True, context={'request': request})
         try:
-            LikedProductSerializer(instance.like.get(user=request.user, product=representation['id'], context={'request': request}))
+            LikedProductSerializer(
+                instance.like.get(user=request.user, product=representation['id']), context={'request': request})
             representation['is_liked'] = True
-        except:
+        except LikedProduct.DoesNotExist:
             representation['is_liked'] = False
         try:
-            FavoriteProductSerializer(instance.favorite.get(user=request.user, product=representation['id'], context={'request': request}))
+            FavoriteProductSerializer(
+                instance.favorite.get(user=request.user, product=representation['id']), context={'request': request})
             representation['is_favorite'] = True
-        except:
+        except FavoriteProduct.DoesNotExist:
             representation['is_favorite'] = False
         representation['like'] = len(likes)
         representation['images'] = serializer.data
