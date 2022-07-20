@@ -136,7 +136,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         email = representation['email']
         serializer = ProductSerializer(instance.user.all(),
                                        many=True, context=self.context)
-        favorite = FavoriteProductSerializer(instance.like.filter(user=email), many=True)
+        favorite = FavoriteProductSerializer(instance.favorite.filter(user=email), many=True)
         representation['products'] = serializer.data
         favorite_list = []
         for product in favorite.data:
