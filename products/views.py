@@ -46,22 +46,15 @@ class ProductViewSet(ModelViewSet):
     @action(['GET'], detail=True)
     def like(self, request, pk=None):
         if request.user.is_authenticated:
-            product = self.get_object()
             user = request.user
             product_id = str(request.get_full_path()).split('/')[2]
-            print(product_id)
             try:
-                like = LikedProduct.objects.filter(product_id=product, user=user)
-                if len(like):
-                    like.delete()
-                    message = 'like removed'
-                else:
-                    LikedProduct.objects.create(product_id=product_id, user_id=user)
-                    message = 'liked'
-            except IndexError:
-                LikedProduct.objects.create(product_id=product_id, user_id=user)
-                message = 'Like'
-            return Response(message, status=200)
+                like = LikedProduct.objects.get(product_id=product_id, user=user)
+                like.delete()
+                return Response('like removed', status=status.HTTP_204_NO_CONTENT)
+            except LikedProduct.DoesNotExist:
+                LikedProduct.objects.create(product_id=product_id, user=user)
+                return Response('liked', status=status.HTTP_201_CREATED)
         else:
             return Response('Requires authentication', status=status.HTTP_403_FORBIDDEN)
 
@@ -70,20 +63,13 @@ class ProductViewSet(ModelViewSet):
         if request.user.is_authenticated:
             user = request.user
             product_id = str(request.get_full_path()).split('/')[2]
-            print(product_id)
             try:
-                like = FavoriteProduct.objects.filter(product_id=product_id, user=user)
-                if len(like):
-                    like.delete()
-                    message = 'deleted from favorite'
-                else:
-                    FavoriteProduct.objects.create(product_id=product_id, user_id=user)
-
-                    message = 'added to favorite'
-            except IndexError:
-                FavoriteProduct.objects.create(product_id=product_id, user_id=user)
-                message = 'Like'
-            return Response(message, status=200)
+                fav = FavoriteProduct.objects.get(product_id=product_id, user=user)
+                fav.delete()
+                return Response('removed from favorites', status=status.HTTP_204_NO_CONTENT)
+            except FavoriteProduct.DoesNotExist:
+                FavoriteProduct.objects.create(product_id=product_id, user=user)
+                return Response('added to favorites', status=status.HTTP_201_CREATED)
         else:
             return Response('Requires authentication', status=status.HTTP_403_FORBIDDEN)
 
@@ -96,8 +82,24 @@ class ProductViewSet(ModelViewSet):
             try:
                 CommentProduct.objects.create(user_id=user, product_id=product_id, text=text)
                 return Response(status=status.HTTP_201_CREATED)
-            except:
+            except CommentProduct.DoesNotExist:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(status.HTTP_403_FORBIDDEN)
+
+    @action(['DELETE'], detail=True)
+    def comment(self, request, pk=None):
+        if request.user.is_staff:
+            user = request.user
+            product_id = str(request.get_full_path()).split('/')[2]
+            text = request.data['text']
+            try:
+                CommentProduct.objects.get(user_id=user, product_id=product_id, text=text).delete()
+                return Response(status=status.HTTP_204_NO_CONTENT)
+            except CommentProduct.DoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response(status.HTTP_403_FORBIDDEN)
 
 class ProductImagesViewSet(ModelViewSet):
     queryset = ProductImage.objects.all()
