@@ -132,7 +132,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-
         email = representation['email']
         serializer = ProductSerializer(instance.user.all(),
                                        many=True, context=self.context)
@@ -140,7 +139,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
         representation['products'] = serializer.data
         favorite_list = []
         for product in favorite.data:
-            favorite_list.append(ProductSerializer(Product.objects.get(id=product['product']), context=self.context).data)
+            favorite_list.append(
+                ProductSerializer(Product.objects.get(id=product['product']), context=self.context).data)
         representation['favorite'] = favorite_list
         return representation
 
@@ -173,4 +173,3 @@ class UserProfileUpdateSerializer(serializers.ModelSerializer):
         if not phone_number.isdigit():
             raise serializers.ValidationError('Phone number should only contain digits')
         return phone_number
-

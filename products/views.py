@@ -3,15 +3,13 @@ from products.serializers import ProductRetrieveSerializer, ProductSerializer, P
 from rest_framework import permissions
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.generics import ListCreateAPIView
-from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from .filters import ProductPriceFilter
 from rest_framework.decorators import action
-from reviews.serializers import LikedProductSerializer
 from reviews.models import LikedProduct, FavoriteProduct, CommentProduct
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 
 from .permissions import IsAuthorOrAdmin, IsImageAuthorOrAdmin
 
@@ -19,7 +17,7 @@ from .permissions import IsAuthorOrAdmin, IsImageAuthorOrAdmin
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all().order_by('id')
     serializer_class = ProductSerializer
-    filter_backends = [SearchFilter, DjangoFilterBackend]
+    filter_backends = [SearchFilter, DjangoFilterBackend, OrderingFilter]
     search_fields = ['title', 'description']
     filterset_class = ProductPriceFilter
     permission_classes = [permissions.AllowAny]
@@ -27,6 +25,24 @@ class ProductViewSet(ModelViewSet):
     # def get_queryset(self):
     #     user = self.request.user
     #     return Product.objects.exclude(user=user).order_by('id')
+
+    def create(self, request, *args, **kwargs):
+        product_serializer = ProductSerializer(data=request.POST, context={'request': request})
+        if product_serializer.is_valid(raise_exception=True):
+            product = product_serializer.save()
+            product_data = product_serializer.data
+
+        images = []
+        for image in request.FILES.getlist('image'):
+            data = {'image': image}
+            image_serializer = ProductImageSerializer(data=data, context={'product': product.id, 'request': request})
+            if image_serializer.is_valid(raise_exception=True):
+                image_serializer.save()
+                images.append(image_serializer.data)
+
+        data = {'product_data': product_data, 'image': images}
+        return Response(data, status=status.HTTP_201_CREATED)
+
     def retrieve(self, request, *args, **kwargs):
         product = self.get_object()
         product.views += 1
@@ -87,19 +103,20 @@ class ProductViewSet(ModelViewSet):
         else:
             return Response(status.HTTP_403_FORBIDDEN)
 
-    @action(['DELETE'], detail=True)
-    def comment(self, request, pk=None):
-        if request.user.is_staff:
-            user = request.user
-            product_id = str(request.get_full_path()).split('/')[2]
-            text = request.data['text']
-            try:
-                CommentProduct.objects.get(user_id=user, product_id=product_id, text=text).delete()
-                return Response(status=status.HTTP_204_NO_CONTENT)
-            except CommentProduct.DoesNotExist:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-        else:
-            return Response(status.HTTP_403_FORBIDDEN)
+    # @action(['DELETE'], detail=True)
+    # def comment(self, request, pk=None):
+    #     if request.user.is_staff:
+    #         user = request.user
+    #         product_id = str(request.get_full_path()).split('/')[2]
+    #         text = request.data['text']
+    #         try:
+    #             CommentProduct.objects.get(user_id=user, product_id=product_id, text=text).delete()
+    #             return Response(status=status.HTTP_204_NO_CONTENT)
+    #         except CommentProduct.DoesNotExist:
+    #             return Response(status=status.HTTP_404_NOT_FOUND)
+    #     else:
+    #         return Response(status.HTTP_403_FORBIDDEN)
+
 
 class ProductImagesViewSet(ModelViewSet):
     queryset = ProductImage.objects.all()

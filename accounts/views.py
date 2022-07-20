@@ -1,6 +1,6 @@
 from django.http import Http404
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import status, permissions
+from rest_framework import status
 from rest_framework.generics import ListAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -8,12 +8,8 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from rest_framework.permissions import AllowAny, IsAdminUser
-from rest_framework.viewsets import ModelViewSet
 from .permissions import IsUserOrAdmin
-from products.serializers import ProductSerializer
 from .serializers import *
-from products.models import Product
 
 User = get_user_model()
 
@@ -112,12 +108,13 @@ class UserProfileView(ListAPIView, UpdateAPIView):
         else:
             return Response('User not found', status=status.HTTP_404_NOT_FOUND)
 
+    @swagger_auto_schema(request_body=UserProfileUpdateSerializer)
     def patch(self, request, *args, **kwargs):
         instance = User.objects.get(email=request.user)
         serializer = UserProfileUpdateSerializer(instance, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -128,6 +125,6 @@ class ProfileView(ListAPIView):
         queryset = User.objects.get(name=username)
         serializer = ProfileSerializer(queryset, context={'request': request})
         if serializer.data:
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response('User not found', status=status.HTTP_404_NOT_FOUND)
