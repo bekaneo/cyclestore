@@ -176,3 +176,4 @@ class UserProfileUpdateSerializer(serializers.ModelSerializer):
         if not phone_number.isdigit():
             raise serializers.ValidationError('Phone number should only contain digits')
         return phone_number
+
