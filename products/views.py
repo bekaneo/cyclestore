@@ -71,7 +71,6 @@ class ProductViewSet(ModelViewSet):
             try:
                 like = LikedProduct.objects.get(product_id=product_id, user=user)
                 like.delete()
-                #asdasd
                 return Response('like removed', status=status.HTTP_200_OK)
             except LikedProduct.DoesNotExist:
                 LikedProduct.objects.create(product_id=product_id, user=user)
@@ -91,12 +90,18 @@ class ProductViewSet(ModelViewSet):
             except FavoriteProduct.DoesNotExist:
                 product = FavoriteProduct.objects.create(product_id=product_id, user=user)
                 product_id = product.product_id
-                user = product.user
                 product_data = Product.objects.get(id=product_id)
                 author = product_data.user
                 title = product_data.title
                 desc = product_data.description
                 send_notification.delay(str(user), str(title), str(author), str(desc))
+                # send_mail(
+                #     subject='Added to favorites',
+                #     message=f'{user} add your product {title} with description {desc} in favorites!',
+                #     from_email=settings.EMAIL_HOST_USER,
+                #     recipient_list=[author],
+                #     fail_silently=False
+                # )
                 return Response('added to favorites', status=status.HTTP_201_CREATED)
         else:
             return Response('Requires authentication', status=status.HTTP_403_FORBIDDEN)
