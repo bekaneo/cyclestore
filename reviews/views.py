@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework import permissions
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
@@ -37,7 +37,7 @@ class CommentProductViewSet(ModelViewSet):
 class FavoriteProductViewSet(ModelViewSet):
     queryset = FavoriteProduct.objects.all()
     serializer_class = FavoriteProductSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
 
     def list(self, request, *args, **kwargs):
         queryset = User.objects.get(email=request.user)
