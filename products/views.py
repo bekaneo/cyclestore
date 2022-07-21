@@ -83,7 +83,7 @@ class ProductViewSet(ModelViewSet):
             try:
                 fav = FavoriteProduct.objects.get(product_id=product_id, user=user)
                 fav.delete()
-                return Response('removed from favorites', status=status.HTTP_204_NO_CONTENT)
+                return Response('removed from favorites', status=status.HTTP_200_OK)
             except FavoriteProduct.DoesNotExist:
                 FavoriteProduct.objects.create(product_id=product_id, user=user)
                 return Response('added to favorites', status=status.HTTP_201_CREATED)
