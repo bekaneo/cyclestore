@@ -1,26 +1,11 @@
-"""
-Celery config file
-
-https://docs.celeryproject.org/en/stable/django/first-steps-with-django.html
-
-"""
-from __future__ import absolute_import
 import os
 from celery import Celery
-from django.conf import settings
 
-
-# this code copied from manage.py
-# set the default Django settings module for the 'celery' app.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cycle.settings')
 
-# you change change the name here
-app = Celery("cycle")
-
-
-# read config from Django settings, the CELERY namespace would make celery
-# config keys has `CELERY` prefix
+app = Celery('cycle')
 app.config_from_object('django.conf:settings', namespace='CELERY')
-
-# load tasks.py in django apps
-app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+app.autodiscover_tasks()
+app.conf.update(result_expires=3600, enable_utc=True, timezone='UTC')
+app.conf.beat_schedule = {}
+app.conf.timezone = 'UTC'
