@@ -38,12 +38,12 @@ class ProductSerializer(serializers.ModelSerializer):
         self.validated_data['user'] = email
         return super().save(**kwargs)
 
-    def update(self, instance, validated_data):
-        images_data = self.context.get('view').request.FILES
-        Product.objects.update(**validated_data)
-        for image in images_data.values():
-            ProductImage.objects.update_or_create(product=instance, image=image)
-        return super().update(instance, validated_data)
+    # def update(self, instance, validated_data):
+    #     images_data = self.context.get('view').request.FILES
+    #     instance.objects.update(**validated_data)
+    #     for image in images_data.values():
+    #         ProductImage.objects.update_or_create(product=instance, image=image)
+    #     return super().update(instance, validated_data)
 
     def check_like(self, instance, request, product_id):
         try:
@@ -71,7 +71,7 @@ class ProductRetrieveSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         request = self.context.get('request')
         likes = LikedProductSerializer(instance.like.all(), many=True, context={'request': request}).data
-        recommendations = Product.objects.filter(category=representation['category'])[:5]
+        recommendations = Product.objects.filter(category=representation['category']).exclude(user=request.user)[:5]
         recommendations = ProductSerializer(recommendations, many=True, context={'request': request})
         comments = CommentProductSerializer(instance.comment.all(), many=True, context={'request': request})
         images = ProductImageSerializer(instance.images.all(),

@@ -113,11 +113,8 @@ class ProductViewSet(ModelViewSet):
             user = request.user
             product_id = str(request.get_full_path()).split('/')[2]
             text = request.data['text']
-            try:
-                CommentProduct.objects.create(user_id=user, product_id=product_id, text=text)
-                return Response(status=status.HTTP_201_CREATED)
-            except CommentProduct.DoesNotExist:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
+            CommentProduct.objects.create(user_id=user, product_id=product_id, text=text)
+            return Response(status=status.HTTP_201_CREATED)
         else:
             return Response(status.HTTP_403_FORBIDDEN)
 
