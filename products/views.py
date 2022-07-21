@@ -68,7 +68,7 @@ class ProductViewSet(ModelViewSet):
             try:
                 like = LikedProduct.objects.get(product_id=product_id, user=user)
                 like.delete()
-                return Response('like removed', status=status.HTTP_204_NO_CONTENT)
+                return Response('like removed', status=status.HTTP_200_OK)
             except LikedProduct.DoesNotExist:
                 LikedProduct.objects.create(product_id=product_id, user=user)
                 return Response('liked', status=status.HTTP_201_CREATED)
