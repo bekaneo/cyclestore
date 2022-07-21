@@ -1,10 +1,11 @@
-from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
-from .models import LikedProduct, CommentProduct, FavoriteProduct
-from .serializers import LikedProductSerializer, CommentProductSerializer, FavoriteProductSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework import permissions
+
 from .permissions import IsAuthorOrAdmin
+from .models import LikedProduct, CommentProduct, FavoriteProduct
+from .serializers import LikedProductSerializer, CommentProductSerializer, FavoriteProductSerializer
+
 
 
 class LikedProductViewSet(ModelViewSet):

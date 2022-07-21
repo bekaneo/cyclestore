@@ -17,21 +17,21 @@ class LikedProductSerializer(serializers.ModelSerializer):
         attrs['user'] = self.context.get('request').user
         return super().validate(attrs)
 
-    def create(self, validated_data):
-        user = validated_data['user']
-        product = validated_data['product']
-        if LikedProduct.objects.filter(user=user, product=product):
-            LikedProduct.objects.filter(user=user, product=product).delete()
-            validated_data = {}
-            return super().create(validated_data)
-        else:
-            return super().create(validated_data)
+    # def create(self, validated_data):
+    #     user = validated_data['user']
+    #     product = validated_data['product']
+    #     if LikedProduct.objects.filter(user=user, product=product):
+    #         LikedProduct.objects.filter(user=user, product=product).delete()
+    #         validated_data = {}
+    #         return super().create(validated_data)
+    #     else:
+    #         return super().create(validated_data)
 
-    def save(self, **kwargs):
-        try:
-            super().save(**kwargs)
-        except IntegrityError:
-            print('')
+    # def save(self, **kwargs):
+    #     try:
+    #         super().save(**kwargs)
+    #     except IntegrityError:
+    #         print('')
 
 
 class CommentProductSerializer(serializers.ModelSerializer):

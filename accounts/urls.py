@@ -1,13 +1,10 @@
 from django.urls import path
-from rest_framework.routers import DefaultRouter
-from rest_framework.routers import DefaultRouter
+
 from .views import (RegistrationView, ActivationView, LoginView, UpdateTokenView,
                     LogoutView, RestorePasswordView, RestorePasswordCompleteView,
                     ChangePasswordView, ProfileView)
 from .views import UserProfileView
 
-# router = DefaultRouter()
-# router.register('profile', UserProfileViewSet, basename='profile')
 
 urlpatterns = [
     path('registration/', RegistrationView.as_view()),
@@ -22,4 +19,3 @@ urlpatterns = [
     path('profile/', UserProfileView.as_view()),
     path('profile/<str:username>', ProfileView.as_view())
 ]
-# urlpatterns += router.urls
