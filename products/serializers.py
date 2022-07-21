@@ -45,6 +45,13 @@ class ProductSerializer(serializers.ModelSerializer):
     #         ProductImage.objects.update_or_create(product=instance, image=image)
     #     return super().update(instance, validated_data)
 
+    def create(self, validated_data):
+        images_data = self.context.get('view').request.FILES
+        product = Product.objects.create(**validated_data)
+        for image in images_data.values():
+            ProductImage.objects.create(product=product, image=image)
+        return product
+
     def check_like(self, instance, request, product_id):
         try:
             LikedProductSerializer(instance.like.get(user=request.user, product=product_id),

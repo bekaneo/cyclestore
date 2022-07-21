@@ -29,23 +29,23 @@ class ProductViewSet(ModelViewSet):
     # def get_queryset(self):
     #     user = self.request.user
     #     return Product.objects.exclude(user=user).order_by('id')
-    @swagger_auto_schema(request_body=ProductSerializer)
-    def create(self, request, *args, **kwargs):
-        product_serializer = ProductSerializer(data=request.POST, context={'request': request})
-        if product_serializer.is_valid(raise_exception=True):
-            product = product_serializer.save()
-            product_data = product_serializer.data
-
-        images = []
-        for image in request.FILES.getlist('image'):
-            data = {'image': image}
-            image_serializer = ProductImageSerializer(data=data, context={'product': product.id, 'request': request})
-            if image_serializer.is_valid(raise_exception=True):
-                image_serializer.save()
-                images.append(image_serializer.data)
-
-        data = {'product_data': product_data, 'image': images}
-        return Response(data, status=status.HTTP_201_CREATED)
+    # @swagger_auto_schema(request_body=ProductSerializer)
+    # def create(self, request, *args, **kwargs):
+    #     product_serializer = ProductSerializer(data=request.POST, context={'request': request})
+    #     if product_serializer.is_valid(raise_exception=True):
+    #         product = product_serializer.save()
+    #         product_data = product_serializer.data
+    #
+    #     images = []
+    #     for image in request.FILES.getlist('image'):
+    #         data = {'image': image}
+    #         image_serializer = ProductImageSerializer(data=data, context={'product': product.id, 'request': request})
+    #         if image_serializer.is_valid(raise_exception=True):
+    #             image_serializer.save()
+    #             images.append(image_serializer.data)
+    #
+    #     data = {'product_data': product_data, 'image': images}
+    #     return Response(data, status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, *args, **kwargs):
         product = self.get_object()
