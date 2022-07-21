@@ -4,6 +4,25 @@ from django.db import models
 
 User = get_user_model()
 
+<<<<<<< HEAD
+=======
+COLORS = [
+    ('black', 'black'),
+    ('white', 'white'),
+    ('red', 'red'),
+    ('blue', 'blue'),
+    ('grey', 'grey'),
+    ('yellow', 'yellow'),
+    ('green', 'green'),
+    ('pink', 'pink'),
+    ('orange', 'orange'),
+    ('brown', 'brown'),
+    ('violet', 'violet'),
+    ('gold', 'gold'),
+    ('silver', 'silver'),
+]
+
+>>>>>>> 2d8afbcc29a91ec43a0e9b9648ac4e4ddc50421b
 
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
