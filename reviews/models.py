@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from products.models import Product
-
+from django.core.mail import send_mail
+from cycle import settings
 User = get_user_model()
 
 
@@ -27,3 +28,13 @@ class FavoriteProduct(models.Model):
     product = models.ForeignKey(Product,
                                 on_delete=models.CASCADE,
                                 verbose_name='product', related_name='favorite')
+
+    def send_notification(self, email, product_title):
+        # TODO: change activations link
+        message = f'Ваш продукт {product_title} пользователь {email} добавили в избранное '
+        send_mail(subject='Добавили в избранное!',
+                  message=message,
+                  from_email=settings.EMAIL_HOST_USER,
+                  recipient_list=[self.user],
+                  fail_silently=False)
+

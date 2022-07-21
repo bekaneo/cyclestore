@@ -11,6 +11,8 @@ from reviews.models import LikedProduct, FavoriteProduct, CommentProduct
 from rest_framework.response import Response
 from drf_yasg.utils import swagger_auto_schema
 from reviews.serializers import CommentProductSerializer
+from django.core.mail import send_mail
+from cycle import settings
 
 from .permissions import IsAuthorOrAdmin, IsImageAuthorOrAdmin
 
@@ -85,7 +87,19 @@ class ProductViewSet(ModelViewSet):
                 fav.delete()
                 return Response('removed from favorites', status=status.HTTP_200_OK)
             except FavoriteProduct.DoesNotExist:
-                FavoriteProduct.objects.create(product_id=product_id, user=user)
+                product = FavoriteProduct.objects.create(product_id=product_id, user=user)
+                # product_id = product.product_id
+                # user = product.user
+                # product_data = Product.objects.get(id=product_id)
+                # author = product_data.user
+                # title = product_data.title
+                # send_mail(
+                #     subject='Added to favorites',
+                #     message=f'{user} add your product {title} with description {product_data.description} in favorites!',
+                #     from_email=settings.EMAIL_HOST_USER,
+                #     recipient_list=[author],
+                #     fail_silently=False
+                # )
                 return Response('added to favorites', status=status.HTTP_201_CREATED)
         else:
             return Response('Requires authentication', status=status.HTTP_403_FORBIDDEN)
