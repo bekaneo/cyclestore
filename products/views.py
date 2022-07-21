@@ -9,6 +9,8 @@ from .filters import ProductPriceFilter
 from rest_framework.decorators import action
 from reviews.models import LikedProduct, FavoriteProduct, CommentProduct
 from rest_framework.response import Response
+from drf_yasg.utils import swagger_auto_schema
+from reviews.serializers import CommentProductSerializer
 
 from .permissions import IsAuthorOrAdmin, IsImageAuthorOrAdmin
 
@@ -24,7 +26,7 @@ class ProductViewSet(ModelViewSet):
     # def get_queryset(self):
     #     user = self.request.user
     #     return Product.objects.exclude(user=user).order_by('id')
-
+    @swagger_auto_schema(request_body=ProductSerializer)
     def create(self, request, *args, **kwargs):
         product_serializer = ProductSerializer(data=request.POST, context={'request': request})
         if product_serializer.is_valid(raise_exception=True):
@@ -88,6 +90,7 @@ class ProductViewSet(ModelViewSet):
         else:
             return Response('Requires authentication', status=status.HTTP_403_FORBIDDEN)
 
+    @swagger_auto_schema(request_body=CommentProductSerializer)
     @action(['POST'], detail=True)
     def comment(self, request, pk=None):
         if request.user.is_authenticated:
