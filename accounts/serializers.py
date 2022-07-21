@@ -68,13 +68,15 @@ class RestorePasswordSerializer(serializers.Serializer):
         user = User.objects.get(email=email)
         user.create_activation_code()
         send_restore_password_mail.delay(email, user.activation_code)
-        # send_mail(
-        #     subject='Activation',
-        #     message=f'Ваш код {user.activation_code}',
-        #     from_email=settings.EMAIL_HOST_USER,
-        #     recipient_list=[email],
-        #     fail_silently=False
-        # )
+        '''
+        send_mail(
+            subject='Activation',
+            message=f'Ваш код {user.activation_code}',
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[email],
+            fail_silently=False
+        )
+        '''
 
 
 class RestorePasswordCompleteSerializer(serializers.Serializer):
