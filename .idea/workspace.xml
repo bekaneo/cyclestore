@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="99958194-2e28-4564-9cb0-5d0e321173e7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cycle/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/cycle/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cycle/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/cycle/celery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cycle/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/cycle/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +108,7 @@
       <workItem from="1658327235328" duration="7436000" />
       <workItem from="1658344855961" duration="4878000" />
       <workItem from="1658376091789" duration="134000" />
-      <workItem from="1658378840209" duration="4423000" />
+      <workItem from="1658378840209" duration="5191000" />
     </task>
     <servers />
   </component>

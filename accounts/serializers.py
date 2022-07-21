@@ -7,7 +7,7 @@ from cycle import settings
 from products.serializers import ProductSerializer
 from reviews.serializers import FavoriteProductSerializer
 from products.models import Product
-from .tasks import send_activation_mail, send_restore_password_mail
+# from .tasks import send_activation_mail, send_restore_password_mail
 
 User = get_user_model()
 
