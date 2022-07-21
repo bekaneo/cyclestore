@@ -38,17 +38,10 @@ class ProductSerializer(serializers.ModelSerializer):
         self.validated_data['user'] = email
         return super().save(**kwargs)
 
-    # def update(self, instance, validated_data):
-    #     images_data = self.context.get('view').request.FILES
-    #     instance.objects.update(**validated_data)
-    #     for image in images_data.values():
-    #         ProductImage.objects.update_or_create(product=instance, image=image)
-    #     return super().update(instance, validated_data)
-
     def create(self, validated_data):
         images_data = self.context.get('view').request.FILES
         product = Product.objects.create(**validated_data)
-        for image in images_data.values():
+        for image in images_data._getlist('image'):
             ProductImage.objects.create(product=product, image=image)
         return product
 

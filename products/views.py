@@ -26,9 +26,6 @@ class ProductViewSet(ModelViewSet):
     filterset_class = ProductPriceFilter
     permission_classes = [permissions.AllowAny]
 
-    # def get_queryset(self):
-    #     user = self.request.user
-    #     return Product.objects.exclude(user=user).order_by('id')
     # @swagger_auto_schema(request_body=ProductSerializer)
     # def create(self, request, *args, **kwargs):
     #     product_serializer = ProductSerializer(data=request.POST, context={'request': request})
@@ -117,20 +114,6 @@ class ProductViewSet(ModelViewSet):
             return Response(status=status.HTTP_201_CREATED)
         else:
             return Response(status.HTTP_403_FORBIDDEN)
-
-    # @action(['DELETE'], detail=True)
-    # def comment(self, request, pk=None):
-    #     if request.user.is_staff:
-    #         user = request.user
-    #         product_id = str(request.get_full_path()).split('/')[2]
-    #         text = request.data['text']
-    #         try:
-    #             CommentProduct.objects.get(user_id=user, product_id=product_id, text=text).delete()
-    #             return Response(status=status.HTTP_204_NO_CONTENT)
-    #         except CommentProduct.DoesNotExist:
-    #             return Response(status=status.HTTP_404_NOT_FOUND)
-    #     else:
-    #         return Response(status.HTTP_403_FORBIDDEN)
 
 
 class ProductImagesViewSet(ModelViewSet):
