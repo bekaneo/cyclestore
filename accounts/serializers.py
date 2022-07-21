@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.core.mail import send_mail
+from cycle import settings
 
 from products.serializers import ProductSerializer
 from reviews.serializers import FavoriteProductSerializer
@@ -31,7 +33,8 @@ class RegistrationSerializer(serializers.Serializer):
     def create(self):
         user = User.objects.create_user(**self.validated_data)
         user.create_activation_code()
-        send_activation_mail.delay(user.email, user.activation_code)
+        # send_activation_mail.delay(user.email, user.activation_code)
+        user.send_activation_code()
 
 
 class LoginSerializer(TokenObtainPairSerializer):
@@ -64,7 +67,14 @@ class RestorePasswordSerializer(serializers.Serializer):
         email = self.validated_data.get('email')
         user = User.objects.get(email=email)
         user.create_activation_code()
-        send_restore_password_mail.delay(email, user.activation_code)
+        # send_restore_password_mail.delay(email, user.activation_code)
+        send_mail(
+            subject='Activation',
+            message=f'Ваш код {user.activation_code}',
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[email],
+            fail_silently=False
+        )
 
 
 class RestorePasswordCompleteSerializer(serializers.Serializer):
