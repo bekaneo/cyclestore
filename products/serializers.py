@@ -71,7 +71,7 @@ class ProductRetrieveSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         request = self.context.get('request')
         likes = LikedProductSerializer(instance.like.all(), many=True, context={'request': request}).data
-        recommendations = Product.objects.filter(category=representation['category']).exclude(user=request.user)[:5]
+        recommendations = Product.objects.filter(category=representation['category'])[:5]
         recommendations = ProductSerializer(recommendations, many=True, context={'request': request})
         comments = CommentProductSerializer(instance.comment.all(), many=True, context={'request': request})
         images = ProductImageSerializer(instance.images.all(),
