@@ -91,14 +91,14 @@ class ProductViewSet(ModelViewSet):
                 author = product_data.user
                 title = product_data.title
                 desc = product_data.description
-                # send_notification.delay(str(user), str(title), str(author), str(desc))
-                send_mail(
-                    subject='Added to favorites',
-                    message=f'{user} add your product {title} with description {desc} in favorites!',
-                    from_email=settings.EMAIL_HOST_USER,
-                    recipient_list=[author],
-                    fail_silently=False
-                )
+                send_notification.delay(str(user), str(title), str(author), str(desc))
+                # send_mail(
+                #     subject='Added to favorites',
+                #     message=f'{user} add your product {title} with description {desc} in favorites!',
+                #     from_email=settings.EMAIL_HOST_USER,
+                #     recipient_list=[author],
+                #     fail_silently=False
+                # )
                 return Response('added to favorites', status=status.HTTP_201_CREATED)
         else:
             return Response('Requires authentication', status=status.HTTP_403_FORBIDDEN)
